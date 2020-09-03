@@ -36,4 +36,3 @@ export default {
   margin-top: 60px;
 }
 </style>
-<!-- The CSS .fade-* classes are named after the 'fade' transition above -->
