@@ -1,8 +1,0 @@
-{
-    "appService.zipIgnorePattern": [
-        "node_modules{,/**}",
-        ".vscode{,/**}"
-    ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/eba0e446-4716-41be-b297-4aab54edf9a0/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/stapneset-web",
-    "appService.deploySubpath": "."
-}
