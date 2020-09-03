@@ -1,15 +1,16 @@
 <template>
   <div id="app">
     <Background/>
-    <Greeting msg="Welcome to Stapneset" leftpct="50" toppct="50" delay="0"/>
-    <Greeting msg="Weather" leftpct="5" toppct="10" delay="1"/>
-    <Greeting msg="Images" leftpct="75" toppct="10" delay="2"/>
-    <Greeting msg="History" leftpct="5" toppct="90" delay="3"/>
-    <Greeting msg="Geocaching" leftpct="75" toppct="90" delay="4"/>
+    <Greeting msg="Welcome to Stapneset" leftpct="30" toppct="32" delay="1" color="LightSlategray"/>
+    <Hyperlink msg="Weather" leftpct="5" toppct="10" delay="1"/>
+    <Hyperlink msg="Images" leftpct="75" toppct="10" delay="2"/>
+    <Hyperlink msg="History" leftpct="5" toppct="90" delay="3"/>
+    <Hyperlink msg="Geocaching" leftpct="75" toppct="90" delay="4"/>
   </div>
 </template>
 
 <script>
+import Hyperlink from './components/Hyperlink.vue'
 import Greeting from './components/Greeting.vue'
 import Background from './components/Background.vue'
 
@@ -17,8 +18,9 @@ import Background from './components/Background.vue'
 export default {
   name: 'App',
   components: {
-    Background,
-    Greeting
+    Greeting,
+    Hyperlink,
+    Background
   },
   
 }
@@ -32,13 +34,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 1.0s ease-in;
-}
-.fade-enter, .fade-leave-active {
-  opacity: 0;
 }
 </style>
 <!-- The CSS .fade-* classes are named after the 'fade' transition above -->

@@ -1,8 +1,10 @@
 <template>
-  <transition name="slide-fade" v-if="pageloaded">
+  <transition name="fade" v-if="pageloaded">
     <div class="link" :style="style">
-    <h1>{{ msg }}</h1>
-    </div>
+      <h1>
+    <a class="nonhighlight" v-on:mouseover="hover=true" v-on:mouseleave="hover=false" v-bind:class="{ highlight: hover }">{{ msg }}</a>
+      </h1>
+  </div>
   </transition>
 </template>
 
@@ -17,7 +19,7 @@ export default {
     color: {
       default: 'azure',
       type: String
-    }
+    },
   },
   computed: {
     style () {
@@ -28,11 +30,11 @@ export default {
   data() {
     return {
       pageloaded: false,
+      hover: false
     };
   },
   created() {
     setTimeout(() => { this.pageloaded = true; }, this.delay*500);
-    setTimeout(() => { this.pageloaded = false; }, this.delay*3000);
   }
 }
 </script>
@@ -40,18 +42,17 @@ export default {
 <style scoped>
 .link{
   position: absolute;
-  z-index: 2;
+  z-index: 1;
 }
-.slide-fade-enter-active {
-  transition: all .8s ease;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1.0s ease-in;
 }
-.slide-fade-leave-active {
-  transition: all .8s ease;
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(10px);
+.fade-enter, .fade-leave-active {
   opacity: 0;
+}
+.highlight{
+  opacity: 0.5;
+  transition: opacity 0.5s ease-in-out;
 }
 </style>
 
