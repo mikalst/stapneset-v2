@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Background/>
-    <Greeting msg="Welcome to Stapneset" leftpct="30" toppct="32" delay="1" color="LightSlategray"/>
+    <Greeting msg="Testing to Stapneset" leftpct="30" toppct="32" delay="1" color="LightSlategray"/>
     <Hyperlink msg="Weather" leftpct="5" toppct="10" delay="1"/>
     <Hyperlink msg="Images" leftpct="75" toppct="10" delay="2"/>
     <Hyperlink msg="History" leftpct="5" toppct="90" delay="3"/>
