@@ -3,8 +3,8 @@
 <fake3d-image-effect
 centered
 fill-height-content
-image="/imgs/stapneset-depth.jpg"
-image-map="/imgs/stapneset-depth-map.jpg">
+image="/imgs/stapneset-depth-copy.jpg"
+image-map="/imgs/stapneset-depth-map-copy.jpg">
 </fake3d-image-effect>
 </div>
 </template>
