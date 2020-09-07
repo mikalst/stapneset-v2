@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <Background/>
-    <Greeting msg="Testing to Stapneset" leftpct="30" toppct="32" delay="1" color="LightSlategray"/>
-    <Hyperlink msg="Weather" leftpct="5" toppct="10" delay="1"/>
-    <Hyperlink msg="Images" leftpct="75" toppct="10" delay="2"/>
-    <Hyperlink msg="History" leftpct="5" toppct="90" delay="3"/>
-    <Hyperlink msg="Geocaching" leftpct="75" toppct="90" delay="4"/>
+    <Greeting msg="Welcome to Stapneset" leftpct="30" toppct="12" delay="1" color="LightSlategray"/>
+    <Hyperlink msg="Weather (coming soon)" :top="true" :left="true" delay="1"/>
+    <Hyperlink msg="Images (coming soon)" :top="false" :left="true" delay="2"/>
+    <Hyperlink msg="History (coming soon)" :top="true" :left="false" delay="3"/>
+    <Hyperlink msg="Geocaching (coming soon)" :top="false" :left="false" delay="4"/>
   </div>
 </template>
 
@@ -21,8 +21,7 @@ export default {
     Greeting,
     Hyperlink,
     Background
-  },
-  
+  }
 }
 </script>
 
@@ -33,6 +32,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 </style>

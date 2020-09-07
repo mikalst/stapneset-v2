@@ -1,11 +1,12 @@
 <template>
+<div>
 <fake3d-image-effect
 centered
 fill-height-content
-tag="div"
 image="/imgs/stapneset-depth.jpg"
 image-map="/imgs/stapneset-depth-map.jpg">
 </fake3d-image-effect>
+</div>
 </template>
 
 <script>

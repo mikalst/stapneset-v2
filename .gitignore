@@ -41,3 +41,6 @@ venv.bak/
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Stupid Mac Stuff
+.DS_Store
