@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-fade" v-if="pageloaded">
-    <div class="link" :style="style">
-    <h1>{{ msg }}</h1>
+    <div class="link">
+    <a>{{ msg }}</a>
     </div>
   </transition>
 </template>
@@ -11,18 +11,10 @@ export default {
   name: 'Hyperlink',
   props: {
     msg: String,
-    toppct: String,
-    leftpct: String,
     delay: String,
     color: {
       default: 'azure',
       type: String
-    }
-  },
-  computed: {
-    style () {
-      return 'top: ' + this.toppct + '%; ' + ' left: ' + this.leftpct + '%;'
-        + 'color: ' + this.color;
     }
   },
   data() {
@@ -38,9 +30,27 @@ export default {
 </script>
 
 <style scoped>
-.link{
-  position: absolute;
-  z-index: 2;
+@media screen and (max-width: 600px) {
+  .link{
+      position: absolute;
+      z-index: 1;
+      top: 5%;
+      left: 5%;
+      width: 90%;
+      font-size: 7vw;
+      text-align: center;
+  }
+}
+@media screen and (min-width: 601px) {
+  .link{
+      position: absolute;
+      z-index: 1;
+      top: 5%;
+      left: 5%;
+      width: 90%;
+      font-size: 42px;
+      text-align: center;
+  }
 }
 .slide-fade-enter-active {
   transition: all .8s ease;

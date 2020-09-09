@@ -1,7 +1,9 @@
 <template>
   <transition name="fade" v-if="pageloaded">
-    <div class="base" v-bind:class="{ top: top, left: left }">
-    <a class="nonhighlight" v-on:mouseover="hover=true" v-on:mouseleave="hover=false" v-bind:class="{ highlight: hover }">{{ msg }}</a>
+    <div class="base">
+    <a class="nonhighlight" v-on:mouseover="hover=true" v-on:mouseleave="hover=false" v-bind:class="{ highlight: hover }">
+    {{ msg }}
+    </a>
   </div>
   </transition>
 </template>
@@ -11,8 +13,6 @@ export default {
   name: 'Hyperlink',
   props: {
     msg: String,
-    top: Boolean,
-    left: Boolean,
     delay: String,
     color: {
       default: 'azure',
@@ -28,7 +28,7 @@ export default {
     };
   },
   created() {
-    setTimeout(() => { this.pageloaded = true; }, this.delay*300);
+    setTimeout(() => { this.pageloaded = true; }, this.delay*500);
   }
 }
 </script>
@@ -37,43 +37,27 @@ export default {
 @media screen and (max-width: 600px) {
   .base{
     position: absolute;
-    z-index: 1;
-    top: 75%;
-    left: 55%;
+    z-index: 2;
+    top: 10%;
+    left: 5%;
     width: 40%;
     word-wrap: normal;
     font-size: 7vw;
-    text-align: right;
-    color: azure;
-  }
-  .top{
-    top: 25%;
-    color: darkslategray;
-  }
-  .left{
-    left: 5%;
     text-align: left;
+    color: darkslategray;
   }
 }
 @media screen and (min-width: 601px) {
   .base{
     position: absolute;
-    z-index: 1;
-    top: 75%;
-    left: 55%;
+    z-index: 2;
+    top: 10%;
+    left: 5%;
     width: 40%;
     word-wrap: normal;
     font-size: 42px;
-    text-align: right;
-    color: azure;
-  }
-  .top{
-    top: 25%;
-    color: darkslategray;
-  }
-  .left{
-    left: 5%;
     text-align: left;
+    color: darkslategray;
   }
 }
 .fade-enter-active, .fade-leave-active {
