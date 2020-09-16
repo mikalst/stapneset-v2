@@ -9,7 +9,7 @@ import Hyperlink from './Hyperlink.vue'
 
 
 export default {
-  name: 'App',
+  name: 'GeocachingUI',
   components: {
     Hyperlink
   }
