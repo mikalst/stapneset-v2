@@ -1,14 +1,14 @@
-const AzureTables = require("@azure/data-tables");
+import { TablesSharedKeyCredential, TableClient } from "@azure/data-tables";
 
-module.exports = async function (context, req) {
+export default async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
     const account = "stapnesetstorage";
     const accountKey = process.env['STAPNESET_WEATHER_STORAGE_ACCOUNT_KEY'];
     const tableName = "tasktable";
 
-    const credential = new AzureTables.TablesSharedKeyCredential(account, accountKey);
-    const client = new AzureTables.TableClient(
+    const credential = new TablesSharedKeyCredential(account, accountKey);
+    const client = new TableClient(
         `https://${account}.table.core.windows.net`,
         tableName,
         credential
