@@ -38,17 +38,6 @@ export default {
 <style scoped>
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
-.time{
-  text-align: left;
-  font-size: 4vw;
-}
-.temp{
-  font-size: 5vw;
-}
-.cloud{
-  font-size: 5vw;
-}
-
 @media screen and (max-width: 600px) {
   .base{
     position: absolute;
@@ -56,6 +45,16 @@ export default {
     top: 40%;
     width: 10%;
     color: azure;
+  }
+  .time{
+    text-align: center;
+    font-size: 6vw;
+  }
+  .temp{
+    font-size: 6vw;
+  }
+  .cloud{
+    font-size: 6vw;
   }
   .farleft{
     left: 20%;
@@ -77,6 +76,16 @@ export default {
     top: 40%;
     width: 10%;
     color: azure;
+  }
+  .time{
+    text-align: center;
+    font-size: 36px;
+  }
+  .temp{
+    font-size: 36px;
+  }
+  .cloud{
+    font-size: 36px;
   }
   .farleft{
     left: 20%;
