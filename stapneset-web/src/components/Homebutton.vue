@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'Hyperlink',
+  name: 'Homebutton',
   props: {
     msg: String,
     delay: String,
