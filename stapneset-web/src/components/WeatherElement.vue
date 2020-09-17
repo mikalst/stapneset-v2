@@ -38,7 +38,6 @@ export default {
 <style scoped>
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
-
 @media screen and (max-width: 600px) {
   .base{
     position: absolute;
@@ -48,7 +47,7 @@ export default {
     color: azure;
   }
   .time{
-    text-align: left;
+    text-align: center;
     font-size: 6vw;
   }
   .temp{
@@ -79,7 +78,7 @@ export default {
     color: azure;
   }
   .time{
-    text-align: left;
+    text-align: center;
     font-size: 36px;
   }
   .temp{
