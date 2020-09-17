@@ -9,7 +9,7 @@
 
     <template v-if="view_index==0">
     <div v-on:click="view_index=1; ">
-    <Hyperlink msg="Weather (coming soon)" :top="true" :left="true" delay="1"/>
+    <Hyperlink msg="Weather" :top="true" :left="true" delay="1"/>
     </div>
     <div v-on:click="view_index=2; ">
     <Hyperlink msg="Images (coming soon)" :top="false" :left="true" delay="2"/>
