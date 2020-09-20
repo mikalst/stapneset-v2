@@ -1,7 +1,9 @@
 <template>
   <transition name="fade" v-if="pageloaded">
     <div class="base" v-bind:class="{ top: top, left: left }">
-    <a class="nonhighlight" v-on:mouseover="hover=true" v-on:mouseleave="hover=false" v-bind:class="{ highlight: hover }">{{ msg }}</a>
+    <a class="nonhighlight" v-on:mouseover="hover=true" v-on:mouseleave="hover=false" v-bind:class="{ highlight: hover }">
+      {{ msg }}
+      </a>
   </div>
   </transition>
 </template>
@@ -76,6 +78,7 @@ export default {
     text-align: left;
   }
 }
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity 1.0s ease-in;
 }
