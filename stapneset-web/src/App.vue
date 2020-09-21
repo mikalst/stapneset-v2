@@ -2,26 +2,27 @@
   <div id="app">
     <Background v-show="show_background"/>
 
-    <div v-on:click="home" v-if="view_index>0">
-    <Homebutton msg="Home" delay="0"/>
+    <div v-on:click="home" v-if="!show_home">
+    <Homebutton msg="Home"/>
     </div>
 
-    <template v-if="view_index==0">
-    <div v-on:click="view_index=1;">
-    <Hyperlink msg="Weather" :top="true" :left="true" delay="0"/>
+    <div  v-if="show_image_button" v-on:click="transition_to_image_view">
+    <Hyperlink msg="Images" :top="false" :left="true"/>
     </div>
-    <div v-on:click="transition_to_images">
-    <Hyperlink msg="Images (coming soon)" :top="false" :left="true" delay="2"/>
+
+    <div  v-if="show_weather_button" v-on:click="transition_to_weather_view">
+    <Hyperlink msg="Weather" :top="true" :left="true"/>
     </div>
-    <div v-on:click="view_index=3; ">
-    <Hyperlink msg="History (coming soon)" :top="true" :left="false" delay="3"/>
+
+    <div  v-if="show_history_button" v-on:click="transition_to_image_view">
+    <Hyperlink msg="History" :top="true" :left="false"/>
     </div>
-    <div v-on:click="view_index=4; ">
-    <Hyperlink msg="Geocaching (coming soon)" :top="false" :left="false" delay="4"/>
-    </div>
-    </template>
     
-    <div v-if="view_index==1">
+    <div  v-if="show_geocaching_button" v-on:click="transition_to_geocaching_view">
+    <Hyperlink msg="Geocaching" :top="false" :left="false"/>
+    </div>
+    
+    <div v-if="show_weather">
     <WeatherUI/>
     </div>
 
@@ -29,11 +30,11 @@
     <ImagesUI/>
     </div>
 
-    <div v-if="view_index==3">
+    <div v-if="show_history">
     <HistoryUI/>
     </div>
 
-    <div v-if="view_index==4">
+    <div v-if="show_geocaching">
     <GeocachingUI/>
     </div>
 
@@ -63,29 +64,64 @@ export default {
   },
   data: function () { 
     return {
-      view_index: 0,
       show_background: true,
+      show_home: true,
+      show_weather: false,
       show_images: false,
+      show_history: false,
+      show_geocaching: false,
+      show_image_button: true,
+      show_weather_button: true,
+      show_history_button: true,
+      show_geocaching_button: true
     }
   },
   methods: {
     home: function()
     {
-      this.view_index = 0;
+      this.show_home = true;
       this.show_background = true;
       this.show_images = false;
+      this.show_weather = false;
+      this.show_history = false;
+      this.show_geocaching = false;
+      this.show_image_button = true;
+      this.show_weather_button = true;
+      this.show_history_button = true;
+      this.show_geocaching_button = true;
     },
-    transition_to_images: function()
+    hide_all_buttons: function ()
     {
-      this.show_background = false;
-      this.view_index = 2;
-      setTimeout(this.set_show_images, 1000);
+      this.show_image_button = false;
+      this.show_weather_button = false;
+      this.show_history_button = false;
+      this.show_geocaching_button = false;
     },
-    set_show_images: function() {
-      this.show_images=true;
-      console.log("set");
-    }
-
+    transition_to_weather_view: function()
+    {
+      this.hide_all_buttons()
+      this.show_home = false;
+      this.show_weather=true;
+    },
+    transition_to_image_view: function()
+    {
+      this.hide_all_buttons()
+      this.show_home = false;
+      this.show_images = true;
+      this.show_background = false;
+    },
+    transition_to_history_view: function()
+    {
+      this.hide_all_buttons()
+      this.show_home = false;
+      this.show_history = true;
+    },
+    transition_to_geocaching_view: function()
+    {
+      this.hide_all_buttons()
+      this.show_home = false;
+      this.show_geocaching = true;
+    },
   },
 }
 </script>
