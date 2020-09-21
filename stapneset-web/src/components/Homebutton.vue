@@ -13,7 +13,6 @@ export default {
   name: 'Homebutton',
   props: {
     msg: String,
-    delay: String,
     color: {
       default: 'azure',
       type: String
@@ -28,38 +27,33 @@ export default {
     };
   },
   created() {
-    setTimeout(() => { this.pageloaded = true; }, this.delay*500);
+    setTimeout(() => { this.pageloaded = true; }, 300);
   }
 }
 </script>
 
 <style scoped>
+.base{
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 10%;
+  z-index: 1;
+  word-wrap: normal;
+  text-align: left;
+  color: darkslategray;
+}
 @media screen and (max-width: 600px) {
   .base{
-    position: absolute;
-    z-index: 2;
-    top: 10%;
-    left: 5%;
-    width: 40%;
-    word-wrap: normal;
     font-size: 7vw;
-    text-align: left;
-    color: darkslategray;
   }
 }
 @media screen and (min-width: 601px) {
   .base{
-    position: absolute;
-    z-index: 2;
-    top: 10%;
-    left: 5%;
-    width: 40%;
-    word-wrap: normal;
     font-size: 42px;
-    text-align: left;
-    color: darkslategray;
   }
 }
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity 1.0s ease-in;
 }
