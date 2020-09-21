@@ -1,5 +1,5 @@
 <template>
-  <div id="landingpage">
+  <div id="weather_app">
     <WeatherElement
       v-for="[idx, sixHourPeriod] of weather_data.entries()"
       v-bind:time="sixHourPeriod.time_formatted"

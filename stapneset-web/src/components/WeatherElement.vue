@@ -30,7 +30,7 @@ export default {
     };
   },
   created() {
-    setTimeout(() => { this.pageloaded = true; }, this.delay*300);
+    setTimeout(() => { this.pageloaded = true; }, 0);
   }
 }
 </script>
