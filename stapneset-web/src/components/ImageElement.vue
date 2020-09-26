@@ -1,9 +1,9 @@
 <template>
-  <transition name="fade" v-if="pageloaded">
-    <div v-bind:class="{ blur: getBlur() }">
-    <img id="image" class="image" v-bind:src="getImageURL()">
-    </div>
+<div v-bind:class="{ blur: getBlur() }">
+  <transition name="fade">
+    <img id="image" class="image" v-bind:src="getImageURL()" v-on:load="onLoadedImage" v-show="pageloaded">
   </transition>
+</div>
 </template>
 
 
@@ -16,11 +16,12 @@ export default {
     blurred_array: Array,
     idx: Number,
     element_height: Number,
-    active_idx: Number
+    active_idx: Number,
   },
   data() {
     return {
       pageloaded: false,
+      load_high_res: false
     };
   },
   methods: {
@@ -28,29 +29,33 @@ export default {
       return !(this.active_idx ==this.idx);
     },
     getImageURL: function () {
-      console.log(this.image_url_hr);
-      if (this.active_idx == this.idx){
+      //console.log(this.image_url_hr);
+      if (this.load_high_res || this.active_idx == this.idx){
+        this.load_high_res = true;
         return this.image_url_hr;
       }
       return this.image_url_lr;
+    },
+    onLoadedImage: function() {
+      this.pageloaded = true;
     }
   },
   created() {
-    setTimeout(() => { this.pageloaded = true; }, this.delay*1000);
+    // setTimeout(() => { this.pageloaded = true; }, this.delay*1000);
   }
 }
 </script>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 1.0s ease-in-out;
+.fade-enter-active {
+  transition: opacity 1s ease-in-out;
 }
-.fade-enter, .fade-leave-active {
+
+.fade-enter-to {
+  opacity: 1;
+}
+.fade-enter {
   opacity: 0;
-}
-.highlight{
-  opacity: 0.5;
-  transition: opacity 0.5s ease-in-out;
 }
 .image{
   width: 50%; 
@@ -58,7 +63,7 @@ export default {
   z-index: 10;
 }
 .blur{
-  filter: blur(0px);
+  filter: blur(3px);
 }
 </style>
 

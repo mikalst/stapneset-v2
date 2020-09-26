@@ -27,12 +27,7 @@ export default {
   data: function() {
     return {
       image_urls_hr: [],
-      image_urls_lr: ['/image_viewer_low_res/ender.jpg', 
-                  '/image_viewer_low_res/familie.jpg',
-                  '/image_viewer_low_res/flyfoto.jpg',
-                  '/image_viewer_low_res/gaarden.jpg', 
-                  '/image_viewer_low_res/hund.jpg',
-                  '/image_viewer_low_res/smistein.png'],
+      image_urls_lr: [],
       scrolled: false,
       window_y_pos: 0,
       element_height: 0,
@@ -45,7 +40,7 @@ export default {
       let val_closest_element = 10000;
       for (let i = 0; i < 6; i++){
         let elementBoundingClientRect = document.getElementById(i).getBoundingClientRect();
-        let dist = Math.abs(window.innerHeight / 2 - (elementBoundingClientRect.y + elementBoundingClientRect.height));
+        let dist = Math.abs(window.innerHeight/2 - (elementBoundingClientRect.y + elementBoundingClientRect.height/2));
         if (dist < val_closest_element){
           idx_closest_element = i;
           val_closest_element = dist;
@@ -55,18 +50,17 @@ export default {
     },
     handleScroll () {
       let current_window_y_pos = window.pageYOffset;
-      if (Math.abs(current_window_y_pos - this.window_y_pos) > 50){
+      if (Math.abs(current_window_y_pos - this.window_y_pos) > 30){
         this.window_y_pos = current_window_y_pos;
         this.changeFocused();
         // console.log(this.image_urls_hr);
       } 
     },
     setImageUrls(filename_array){
-      console.log(filename_array);
       let url_array = [];
       let url_array_lr = [];
         for (let i = 0; i < filename_array.length; i++){
-          url_array.push("http://localhost:7071/api/fetch-images?file="+filename_array[i]);
+          url_array.push(process.env.VUE_APP_API_PATH+"fetch-images?file="+filename_array[i]);
           url_array_lr.push("image_viewer_low_res/"+filename_array[i]);
         }
       this.image_urls_hr = url_array;
@@ -76,7 +70,7 @@ export default {
   async created () {
     window.addEventListener('scroll', this.handleScroll);
     this.element_height = Math.floor(window.innerHeight / 2);
-    const res = await fetch('http://localhost:7071/api/fetch-images'+`?list=true`);
+    const res = await fetch(process.env.VUE_APP_API_PATH+"fetch-images?list=true");
     const data = await res.json();
     this.setImageUrls(data["filenames"]);
   },
