@@ -14,7 +14,7 @@
     <Hyperlink msg="Weather" :top="true" :left="true"/>
     </div>
 
-    <div  v-if="show_history_button" v-on:click="transition_to_image_view">
+    <div  v-if="show_history_button" v-on:click="transition_to_history_view">
     <Hyperlink msg="History" :top="true" :left="false"/>
     </div>
     
