@@ -28,7 +28,7 @@ export default {
     }
   },
   async created() {
-    let response = await fetch(`${process.env.VUE_APP_API}`);
+    let response = await fetch(process.env.VUE_APP_API_PATH+"fetch-weather");
     let body = await response.json();
     this.weather_data = body;
   }
