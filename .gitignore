@@ -44,3 +44,6 @@ __pycache__/
 
 # Stupid Mac Stuff
 .DS_Store
+
+# Visual Studio
+**/.vscode
