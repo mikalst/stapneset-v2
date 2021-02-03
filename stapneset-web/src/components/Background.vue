@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { isMobile } from 'mobile-device-detect';
+
 export default {
     name: 'Background',
     components: {
@@ -32,10 +34,10 @@ export default {
       }
     },
     mounted(){
-      window.addEventListener('mousemove',this.mouseIsMoving);
-      window.addEventListener('deviceorientation', function(event) {
-        this.x_offset_orientation = event.alpha / 360;
-      });
+      if (!isMobile) {
+        window.addEventListener('mousemove', this.mouseIsMoving);
+      }
+        
     },
     destroyed: function() {
       window.removeEventListener('mousemove', this.mouseIsMoving);
