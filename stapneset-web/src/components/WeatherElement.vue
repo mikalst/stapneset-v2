@@ -17,7 +17,6 @@ export default {
     time: String,
     temperature: Number,
     cloud_area_fraction: Number,
-    cloud_icon: String,
     wind_speed: Number,
     idx: Number
   },
@@ -26,11 +25,21 @@ export default {
   data() {
     return {
       pageloaded: false,
-      hover: false
+      hover: false,
+      cloud_icon: ""
     };
   },
   created() {
-    setTimeout(() => { this.pageloaded = true; }, 0);
+    setTimeout(() => { 
+      this.pageloaded = true; 
+      if (this.cloud_area_fraction > 80) {
+        this.cloud_icon = "wb_cloudy";
+      } else if (this.cloud_area_fraction > 40) {
+        this.cloud_icon = "filter_drama";
+      } else {
+        this.cloud_icon = "wb_sunny";
+      }
+    }, 0);
   }
 }
 </script>

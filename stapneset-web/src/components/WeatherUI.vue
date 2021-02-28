@@ -3,10 +3,9 @@
     <WeatherElement
       v-for="[idx, sixHourPeriod] of weather_data.entries()"
       v-bind:time="sixHourPeriod.time_formatted"
-      v-bind:temperature="sixHourPeriod.air_temperature"
-      v-bind:cloud_area_fraction="sixHourPeriod.cloud_area_fraction"
-      v-bind:cloud_icon="sixHourPeriod.cloud_icon"
-      v-bind:wind_speed="sixHourPeriod.wind_speed"
+      v-bind:temperature="sixHourPeriod.air_temperature['_']"
+      v-bind:cloud_area_fraction="sixHourPeriod.cloud_area_fraction['_']"
+      v-bind:wind_speed="sixHourPeriod.wind_speed['_']"
       v-bind:idx="idx"
       v-bind:key="idx"
     ></WeatherElement>
@@ -30,9 +29,8 @@ export default {
   async created() {
     let response = await fetch(process.env.VUE_APP_API_PATH+"fetch-weather");
     console.log(response);
-    console.log(await response.text());
     let body = await response.json();
-    console.log("Hey", body);
+    console.log(body);
     this.weather_data = body["data"];
   }
 }

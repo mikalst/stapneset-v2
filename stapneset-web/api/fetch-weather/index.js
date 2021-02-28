@@ -42,13 +42,7 @@ async function fetchFromYr() {
     }
 }
 
-async function store(data) {
-    const account = "stapnesetstorage";
-    const accountKey = process.env['STAPNESET_WEATHER_STORAGE_ACCOUNT_KEY'];
-    const tableName = "tasktable";
-
-    var tableSvc = azure.createTableService(account, accountKey);
-
+async function store(tableSvc, data) {
     let promise = new Promise((resolve, reject) => {
         data.forEach(entry => {
             tableSvc.insertOrReplaceEntity(tableName, entry, {echoContent: true}, function (error, result, response) {
@@ -68,14 +62,11 @@ async function store(data) {
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    const account = "stapnesetstorage";
-    const accountKey = process.env['STAPNESET_WEATHER_STORAGE_ACCOUNT_KEY'];
-    const tableName = "tasktable";
+    const connectionString = process.env['STAPNESET_WEATHER_STORAGE_CONNECTION_STRING'];
 
-    var tableSvc = azure.createTableService(account, accountKey);
+    var tableSvc = azure.createTableService(connectionString);
 
     let weather_data = [];
-    let missing = [];
 
     let date = new Date(Date.now() + 60*60000);
     date.setMinutes(0);
@@ -92,8 +83,11 @@ module.exports = async function (context, req) {
                     weather_data.push(result);
                 }
                 else {
+                    // Fetch data from yr
                     data = await fetchFromYr(rowKey);
+                    // Store data
                     await store(data);
+                    // Push to output
                     weather_data.push(data.filter((entry) => {
                         return entry.RowKey === rowKey;
                     }));
