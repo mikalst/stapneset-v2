@@ -1,4 +1,4 @@
-var azure = require('azure-storage');
+const azure = require('azure-storage');
 const https = require('https');
 
 
@@ -109,14 +109,12 @@ module.exports = async function (context, req) {
             date.setHours(date.getHours() + 24);
         }
         context.res = {
-            // status: 200, /* Defaults to 200 */
             body: JSON.stringify({"data": weather_data})
         };
     }
     catch (error) {
         console.log(error);
         context.res = {
-            // status: 200, /* Defaults to 200 */
             body: JSON.stringify({"data": [null, null, null]})
         };
     }
