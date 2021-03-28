@@ -64,45 +64,60 @@ module.exports = async function (context, req) {
     const connectionString = process.env['STORAGE_CONNECTION_STRING'];
     const tableName = process.env['STORAGE_TABLE_NAME'];
 
-    var tableSvc = azure.createTableService(connectionString);
+    try{
+        var tableSvc = azure.createTableService(connectionString);
 
-    let weather_data = [];
+        let weather_data = [];
 
-    let date = new Date(Date.now() + 60*60000);
-    date.setMinutes(0);
-    date.setSeconds(0);
-    date.setMilliseconds(0);
-    
-    for (i = 0; i < 3; i++) {
-        let rowKey = date.toISOString().slice(0, -5)+"Z";
+        let date = new Date(Date.now() + 60*60000);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        date.setMilliseconds(0);
         
-        let promise = new Promise(function(resolve, reject) {
-            tableSvc.retrieveEntity(tableName, 'taskNorway', rowKey, async function(error, result, response) {
-                if(!error) {
-                    //Query was successful
-                    weather_data.push(result);
-                }
-                else {
-                    //Fetch data from yr
-                    data = await fetchFromYr(rowKey);
+        for (i = 0; i < 3; i++) {
+            let rowKey = date.toISOString().slice(0, -5)+"Z";
+            
+            let promise = new Promise(function(resolve, reject) {
+                tableSvc.retrieveEntity(tableName, 'taskNorway', rowKey, async function(error, result, response) {
+                    if(!error) {
+                        //Query was successful
+                        weather_data.push(result);
+                        resolve("Success");
+                    }
+                    else {
+                        //Fetch data from yr
+                        data = await fetchFromYr(rowKey);
 
-                    //Store data to Azure
-                    await store(tableSvc, tableName, data);
+                        //Store data to Azure
+                        await store(tableSvc, tableName, data);
 
-                    //Push to output
-                    weather_data.push(data.find((entry) => {
-                        return entry.RowKey['_'] === rowKey;
-                    }));
-                }
-                resolve("Success");
+                        //Push to output
+                        tableSvc.retrieveEntity(tableName, 'taskNorway', rowKey, async function(error, result, response) {
+                            if(!error) {
+                                //Query was successful
+                                weather_data.push(result);
+                                resolve("Success");
+                            }
+                            else {
+                                reject("Failure!");
+                            }
+                        });
+                    }
+                });
             });
-        });
-        await promise;
-        date.setHours(date.getHours() + 24);
+            await promise;
+            date.setHours(date.getHours() + 24);
+        }
+        context.res = {
+            // status: 200, /* Defaults to 200 */
+            body: JSON.stringify({"data": weather_data})
+        };
     }
-
-    context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: JSON.stringify({"data": weather_data})
-    };
+    catch (error) {
+        console.log(error);
+        context.res = {
+            // status: 200, /* Defaults to 200 */
+            body: JSON.stringify({"data": [null, null, null]})
+        };
+    }
 }
