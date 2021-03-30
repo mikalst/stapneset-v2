@@ -1,7 +1,7 @@
 <template>
   <transition name="fade" v-if="pageloaded">
-    <div class="base" v-bind:class="{ farleft: idx == 0, left: idx == 1, right: idx == 2, farright: idx == 3 }">
-    <p class="time">{{ time }}</p>
+    <div class="base" v-bind:class="{ farleft: idx == 0, left: idx == 1, right: idx == 2 }">
+    <p class="time">{{ days[time.getDay()]+"\n Kl."+time.getHours() }}</p>
     <p class="temp" v-on:mouseover="hover=true" v-on:mouseleave="hover=false" v-bind:class="{ highlight: hover }">{{ temperature }}&deg;C</p>
     <i class="material-icons" style="font-size:7vw;"> {{ cloud_icon }}</i>
     <p class="temp" v-on:mouseover="hover=true" v-on:mouseleave="hover=false" v-bind:class="{ highlight: hover }">{{ wind_speed }}m/s</p>
@@ -14,11 +14,17 @@
 export default {
   name: 'WeatherElement',
   props: {
-    time: String,
+    time: Date,
     temperature: Number,
     cloud_area_fraction: Number,
     wind_speed: Number,
-    idx: Number
+    idx: Number,
+    days: {
+      type: Array,
+      default: function () {
+        return ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag']
+      }
+    }
   },
   computed: {
   },
@@ -51,8 +57,8 @@ export default {
   .base{
     position: absolute;
     z-index: 1;
-    top: 40%;
-    width: 10%;
+    top: 30%;
+    width: 30%;
     color: azure;
   }
   .time{
@@ -66,24 +72,21 @@ export default {
     font-size: 6vw;
   }
   .farleft{
-    left: 20%;
+    left: 2.5%;
   }
   .left{
-    left: 44%;
+    left: 35%;
   }
   .right{
-    left: 66%;
-  }
-  .farright{
-    left: 78%;
+    left: 67.5%;
   }
 }
 @media screen and (min-width: 601px) {
   .base{
     position: absolute;
     z-index: 1;
-    top: 40%;
-    width: 10%;
+    top: 30%;
+    width: 30%;
     color: azure;
   }
   .time{
@@ -97,16 +100,13 @@ export default {
     font-size: 36px;
   }
   .farleft{
-    left: 20%;
+    left: 2.5%;
   }
   .left{
-    left: 44%;
+    left: 35%;
   }
   .right{
-    left: 66%;
-  }
-  .farright{
-    left: 78%;
+    left: 67.5%;
   }
 }
 
