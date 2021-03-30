@@ -1,4 +1,4 @@
-var azure = require("@azure/storage-blob");
+const { BlobServiceClient } = require("@azure/storage-blob");
 
 async function streamToBuffer(readableStream) {
     return new Promise((resolve, reject) => {
@@ -16,15 +16,11 @@ async function streamToBuffer(readableStream) {
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    const account = "stapnesetstorage";
-    const accountKey = process.env['STAPNESET_WEATHER_STORAGE_ACCOUNT_KEY'];
-  
-    const sharedKeyCredential = new azure.StorageSharedKeyCredential(account, accountKey);
-    const blobServiceClient = new azure.BlobServiceClient(
-    `https://${account}.blob.core.windows.net`,
-    sharedKeyCredential
-    );
-    const containerClient = blobServiceClient.getContainerClient('images');
+    const blobServiceClient = BlobServiceClient.fromConnectionString(
+        process.env['STORAGE_CONNECTION_STRING']);
+
+    const containerClient = blobServiceClient.getContainerClient(
+        process.env['STORAGE_IMAGES_BLOB_CONTAINER_NAME']);
         
     if (req.query.list=='true' || (req.body && req.body.list=='true')){
         let blobs = containerClient.listBlobsFlat();
