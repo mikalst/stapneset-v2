@@ -57,13 +57,14 @@ export default {
 .fade-enter {
   opacity: 0;
 }
-.image{
-  width: 50%; 
-  align-content: center;
-  z-index: 10;
-}
 .blur{
   filter: blur(3px);
+}
+.image{
+  width: 100%;
+  max-width: 100vh; 
+  align-content: center;
+  z-index: 10;
 }
 </style>
 
