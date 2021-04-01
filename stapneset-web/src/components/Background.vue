@@ -59,7 +59,8 @@ export default {
 #background-second-container {
   position: fixed;
   left: -5%;
-  height: 100%;
+  top: -5%;
+  height: 110%;
   width: 110%;
 }
 img {
