@@ -19,7 +19,7 @@
     </div>
     
     <div  v-if="show_geocaching_button" v-on:click="transition_to_geocaching_view">
-    <Hyperlink msg="Geocaching" :top="false" :left="false"/>
+    <Hyperlink msg="Instagram" :top="false" :left="false"/>
     </div>
     
     <div v-if="show_weather">
@@ -35,7 +35,7 @@
     </div>
 
     <div v-if="show_geocaching">
-    <GeocachingUI/>
+    <InstaFeed/>
     </div>
 
   </div>
@@ -48,7 +48,7 @@ import Background from '@/components/Background.vue'
 
 import WeatherUI from '@/components/WeatherUI.vue'
 import ImagesUI from '@/components/ImagesUI.vue'
-import GeocachingUI from '@/components/GeocachingUI.vue'
+import InstaFeed from '@/components/InstaFeed.vue'
 import HistoryUI from '@/components/HistoryUI.vue'
 
 export default {
@@ -59,7 +59,7 @@ export default {
     Background,
     WeatherUI,
     ImagesUI,
-    GeocachingUI,
+    InstaFeed,
     HistoryUI
   },
   data: function () { 
@@ -121,6 +121,7 @@ export default {
       this.hide_all_buttons()
       this.show_home = false;
       this.show_geocaching = true;
+      this.show_background = false;
     },
   },
 }
