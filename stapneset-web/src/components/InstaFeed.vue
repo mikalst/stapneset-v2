@@ -1,5 +1,5 @@
 <template>
-  <div id="images_app" style="height: 90%; ">
+  <div id="images_app" style="height: 100%; ">
     <div style="height: 20vh; ">
     <InstaElement
       v-for="el in d"
