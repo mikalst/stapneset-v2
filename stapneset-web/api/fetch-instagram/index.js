@@ -4,8 +4,8 @@ const https = require('https');
 
 async function fetchFromIg() {
     try {
-        let url = `https://graph.instagram.com/${process.env['IG_USER_ID']}`
-            + `/media?access_token=${process.env['IG_ACCESS_TOKEN']}&fields=id`
+        let url = `https://graph.instagram.com/${process.env['IG_API_USER_ID']}`
+            + `/media?access_token=${process.env['IG_API_ACCESS_TOKEN']}&fields=id`
             + `,username,media_type,media_url`;
         let http_promise = new Promise((resolve, reject) => {
             https.get(url, {headers: {}}, (response) => {
