@@ -1,4 +1,3 @@
-const azure = require('azure-storage');
 const https = require('https');
 const { DefaultAzureCredential } = require("@azure/identity");
 const { SecretClient } = require("@azure/keyvault-secrets");
