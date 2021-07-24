@@ -1,6 +1,7 @@
 <template>
   <div id="images_app" style="height: 100%; ">
-    <div style="height: 20vh; ">
+    <div style="height: 20vh; "></div>
+    <div>
     <InstaElement
       v-for="el in d"
       v-bind:key="el.id"

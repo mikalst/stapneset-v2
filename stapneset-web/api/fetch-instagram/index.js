@@ -1,11 +1,25 @@
 const azure = require('azure-storage');
 const https = require('https');
+const { DefaultAzureCredential } = require("@azure/identity");
+const { SecretClient } = require("@azure/keyvault-secrets");
 
 
 async function fetchFromIg() {
+    // DefaultAzureCredential expects the following three environment variables:
+    // * AZURE_TENANT_ID: The tenant ID in Azure Active Directory
+    // * AZURE_CLIENT_ID: The application (client) ID registered in the AAD tenant
+    // * AZURE_CLIENT_SECRET: The client secret for the registered application
+    const credential = new DefaultAzureCredential();
+    const vaultName = "stapneset-keyvault";
+    const url = `https://${vaultName}.vault.azure.net`;
+
+    const client = new SecretClient(url, credential);
+    const secretName = "ig-api-access-token";
+
     try {
+        const igAccessToken = await client.getSecret(secretName);
         let url = `https://graph.instagram.com/${process.env['IG_API_USER_ID']}`
-            + `/media?access_token=${process.env['IG_API_ACCESS_TOKEN']}&fields=id`
+            + `/media?access_token=${igAccessToken}&fields=id`
             + `,username,media_type,media_url`;
         let http_promise = new Promise((resolve, reject) => {
             https.get(url, {headers: {}}, (response) => {
