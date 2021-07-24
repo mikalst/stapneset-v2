@@ -45,6 +45,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy Func app
     steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
       - name: Setup Node ${{ env.NODE_VERSION }} Environment
         uses: actions/setup-node@v1
         with:
