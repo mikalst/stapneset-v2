@@ -41,9 +41,14 @@ module.exports = async function (context, myTimer) {
         });
     });
 
-    let igRefreshedAccessToken = JSON.parse(await http_promise).access_token;
-
-    await client.setSecret(secretName, igRefreshedAccessToken);
+    try {
+        let igRefreshedAccessToken = JSON.parse(await http_promise).access_token;
+        await client.setSecret(secretName, igRefreshedAccessToken);
     
-    context.log('Successfully refreshed token at', new Date());   
+        context.log('Successfully refreshed token at', new Date());   
+    }
+    catch (ex) {
+        console.log.error(ex);
+    }
+
 };
