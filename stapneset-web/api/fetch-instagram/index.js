@@ -17,7 +17,7 @@ async function fetchFromIg() {
     const secretName = "ig-api-access-token";
 
     try {
-        const igAccessToken = await client.getSecret(secretName);
+        const igAccessToken = await (await client.getSecret(secretName)).value;
         let url = `https://graph.instagram.com/${process.env['IG_API_USER_ID']}`
             + `/media?access_token=${igAccessToken}&fields=id`
             + `,username,media_type,media_url`;

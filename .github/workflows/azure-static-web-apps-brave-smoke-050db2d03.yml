@@ -15,10 +15,10 @@ env:
   NODE_VERSION: '12.x'                     # set this to the node version to use (supports 8.x, 10.x, 12.x)
 
 jobs:
-  build_and_deploy_job:
+  deploy_static_web_app:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Build and Deploy Job
+    name: Deploy Static Web app
     steps:
       - uses: actions/checkout@v2
         with:
@@ -40,6 +40,11 @@ jobs:
           IG_API_ACCESS_TOKEN: ${{ secrets.IG_API_ACCESS_TOKEN }}
           IG_API_USER_ID: ${{ secrets.IG_API_USER_ID }}
 
+  deploy_utils_func_app:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Deploy Func app
+    steps:
       - name: Setup Node ${{ env.NODE_VERSION }} Environment
         uses: actions/setup-node@v1
         with:
