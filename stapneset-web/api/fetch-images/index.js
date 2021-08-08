@@ -1,4 +1,4 @@
-const { BlobServiceClient } = require("@azure/storage-blob");
+const { BlobServiceClient, BlobSASPermissions, CommonGenerateSasUrlOptions } = require("@azure/storage-blob");
 
 async function streamToBuffer(readableStream) {
     return new Promise((resolve, reject) => {
@@ -21,30 +21,25 @@ module.exports = async function (context, req) {
 
     const containerClient = blobServiceClient.getContainerClient(
         process.env['STORAGE_IMAGES_BLOB_CONTAINER_NAME']);
-        
-    if (req.query.list=='true' || (req.body && req.body.list=='true')){
-        let blobs = containerClient.listBlobsFlat();
-        let filenames_obj = {
-            filenames: []
-        };
-        for await (const blob of blobs){
-            filenames_obj.filenames.push(blob.name);
-        }
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: filenames_obj
-        };
+
+    let blobs = containerClient.listBlobsFlat();
+    let urls = [];
+
+    const sasOptions = {
+        permissions : BlobSASPermissions.parse("read")
+    };
+    sasOptions.startsOn = new Date();
+    sasOptions.expiresOn = new Date();
+    sasOptions.expiresOn.setHours(new Date().getHours() + 1);
+    console.log(sasOptions.expiresOn);
+    console.log(sasOptions.startsOn);
+
+    for await (const blob of blobs){
+        let blobClient = containerClient.getBlobClient(blob.name);
+        urls.push(await blobClient.generateSasUrl(sasOptions));
     }
-    else if (req.query.file || (req.body && req.body.file)) {
-        const blobClient = containerClient.getBlobClient((req.query.file) || (req.body.name));
-        const downloadBlockBlobResponse = await blobClient.download();
-        const downloaded = new Uint8Array(
-            await streamToBuffer(downloadBlockBlobResponse.readableStreamBody)
-          );
-        //console.log("Downloaded blob content:", downloaded);
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: downloaded
-        };
-    }
+    context.res = {
+        // status: 200, /* Defaults to 200 */
+        body: urls
+    };
 }

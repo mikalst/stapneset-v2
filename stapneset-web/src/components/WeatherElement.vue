@@ -22,7 +22,7 @@ export default {
     days: {
       type: Array,
       default: function () {
-        return ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag']
+        return ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag']
       }
     }
   },
@@ -120,6 +120,13 @@ export default {
   opacity: 0.5;
   transition: opacity 0.5s ease-in-out;
 }
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
 </style>
 
 

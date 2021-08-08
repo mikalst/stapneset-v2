@@ -27,7 +27,7 @@ export default {
   filter: blur(3px);
 }
 .image{
-  width: 65%;
+  height: 80vh;
   max-width: 100vh; 
   align-content: center;
   z-index: 10;

@@ -73,6 +73,7 @@ module.exports = async function (context, req) {
     try{
         var tableSvc = azure.createTableService(connectionString);
 
+        var parsedWeatherData = {};
         var weatherData = {};
 
         let promise = new Promise(function(resolve, reject) {
@@ -84,8 +85,15 @@ module.exports = async function (context, req) {
                     if(!error) {
                         //Query was successful
                         weatherData = result;
-                    
+
                         console.log("Successfully fetched data from storage.");
+
+                        parsedWeatherData = {
+                            "data": JSON.parse(weatherData.data['_']),
+                            "RowKey": weatherData.RowKey,
+                            "PartitionKey": weatherData.PartitionKey
+                        };
+
                         resolve("Success");
                     }
                     else {
@@ -99,6 +107,13 @@ module.exports = async function (context, req) {
                         await store(tableSvc, tableName, weatherData);
 
                         console.log("[DEBUG] Successfully fetched and stored data from Yr.");
+                        
+                        parsedWeatherData = {
+                            "data": JSON.parse(weatherData.data),
+                            "RowKey": weatherData.RowKey,
+                            "PartitionKey": weatherData.PartitionKey
+                        };
+
                         resolve("Success");
                     }
                 }
@@ -108,14 +123,8 @@ module.exports = async function (context, req) {
         });
 
         await promise;
-
-        console.log(weatherData);
         
-        parsedWeatherData = {
-            "data": JSON.parse(weatherData.data['_']),
-            "RowKey": weatherData.RowKey,
-            "PartitionKey": weatherData.PartitionKey
-        };
+        console.log(parsedWeatherData);
 
         context.res = {
             body: JSON.stringify(parsedWeatherData)
