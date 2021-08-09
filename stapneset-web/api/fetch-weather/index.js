@@ -30,7 +30,7 @@ async function fetchFromYr() {
     return json;
 }
 
-function processFromYr(yrJson, rowKey) {
+function processFromYr(yrJson, partitionKey, rowKey) {
     var currentHour = rowKey;
     var data = {
         "current" : yrJson[0],
@@ -40,7 +40,7 @@ function processFromYr(yrJson, rowKey) {
     return {
         "data": JSON.stringify(data),
         "RowKey": rowKey,
-        "PartitionKey": rowKey
+        "PartitionKey": partitionKey
     };
 }
 
@@ -67,8 +67,8 @@ module.exports = async function (context, req) {
     const connectionString = process.env['STORAGE_CONNECTION_STRING'];
     const tableName = process.env['STORAGE_TABLE_NAME'];
 
-    var roundedDate = new Date().getHours();
-    const rowKey = roundedDate.toString();
+    const partitionKey = new Date().toDateString();
+    const rowKey = new Date().getHours().toString();
 
     try{
         var tableSvc = azure.createTableService(connectionString);
@@ -79,7 +79,7 @@ module.exports = async function (context, req) {
         let promise = new Promise(function(resolve, reject) {
             tableSvc.retrieveEntity(
                 tableName,
-                rowKey,
+                partitionKey,
                 rowKey,
                 async function(error, result, response) {
                     if(!error) {
@@ -101,7 +101,7 @@ module.exports = async function (context, req) {
 
                         //Fetch data from yr
                         rawWeatherData = await fetchFromYr();
-                        weatherData = processFromYr(rawWeatherData, rowKey);
+                        weatherData = processFromYr(rawWeatherData, partitionKey, rowKey);
 
                         //Store data to Azure
                         await store(tableSvc, tableName, weatherData);
@@ -123,7 +123,7 @@ module.exports = async function (context, req) {
         });
 
         await promise;
-        
+
         console.log(parsedWeatherData);
 
         context.res = {

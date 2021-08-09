@@ -1,37 +1,56 @@
 <template>
-  <div id="images_app" style="height: 100%; ">
-    <div style="height: 20vh; "></div>
-    <div>
-    <InstaElement
-      v-for="el in d"
-      v-bind:key="el.id"
+  <div id="images_app">
+    <div class="scrollsnapparent">
+    <div style="height: 30vh;"></div>
+    <ImageElement
+      v-for="el of image_urls"
       v-bind:url="el.media_url"
-    ></InstaElement>
-  </div>
-  <div style="height: 60vh; "></div>
+      v-bind:key="el.id"
+      class="scrollsnapchild"
+    ></ImageElement>
+    <div style="height: 30vh;"></div>
+    </div>
   </div>
 </template>
 
 <script>
-import InstaElement from './InstaElement.vue'
+import shuffle from '../methods/shuffle';
+import ImageElement from './ImageElement.vue'
 
 export default {
   name: 'InstaFeed',
   components: {
-    InstaElement
+    ImageElement
   },
   data: function () {
     return {
-      d: {
-        type: Array,
-        default: [null, null]
-      }
+      image_urls: []
+    }
+  },
+  methods: {
+    async fetchImageUrls(){
+      let res = await fetch(process.env.VUE_APP_API_PATH+"fetch-instagram");
+      let json = await res.json();
+      this.image_urls = shuffle(json["data"]);
+      return;
     }
   },
   async created () {
-    const res = await fetch(process.env.VUE_APP_API_PATH+"fetch-instagram");
-    const json = await res.json();
-    this.d = json["data"];
+    await this.fetchImageUrls();
   }
 }
 </script>
+<style scoped>
+.scrollsnapchild{
+  scroll-snap-align: center;
+}
+.scrollsnapparent{
+  scroll-snap-type: y mandatory;
+  overflow: scroll;
+  height: 100vh;
+}
+#images_app{
+  overflow: hidden;
+  height:100vh;
+}
+</style>

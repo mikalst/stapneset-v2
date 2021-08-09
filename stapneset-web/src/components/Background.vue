@@ -1,7 +1,7 @@
 <template>
 <transition name="fade">
   <div id="background-first-container">
-    <div id="background-second-container" :style="style_second_container">
+    <div id="background-second-container">
       <img src="/imgs/stapneset-depth.jpg"/>
     </div>
   </div>
@@ -9,38 +9,15 @@
 </template>
 
 <script>
-import { isMobile } from 'mobile-device-detect';
-
 export default {
     name: 'Background',
     components: {
     },
     computed: {
-      style_second_container () {
-        return "left: " + this.x_offset_mouse + "%;";
-      }
     },
     data() {
       return {
-        x_offset_mouse: {
-          default: 0,
-          type: Number
-        }
       };
-    },
-    methods: {
-      mouseIsMoving(e){
-        this.x_offset_mouse = Math.cos(Math.PI*(window.innerWidth - e.pageX)/window.innerWidth)*5 - 5;
-      }
-    },
-    mounted(){
-      if (!isMobile) {
-        window.addEventListener('mousemove', this.mouseIsMoving);
-      }
-        
-    },
-    destroyed: function() {
-      window.removeEventListener('mousemove', this.mouseIsMoving);
     }
 };
 </script>
@@ -62,6 +39,7 @@ export default {
   top: -5%;
   height: 110%;
   width: 110%;
+  background-image: "/imgs/stapneset-depth.jpg"
 }
 img {
   height: 100%;

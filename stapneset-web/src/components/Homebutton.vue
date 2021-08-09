@@ -35,13 +35,14 @@ export default {
 <style scoped>
 .base{
   position: absolute;
-  top: 10%;
+  top: 5%;
   left: 5%;
   width: 10%;
-  z-index: 1;
+  z-index: 100;
   word-wrap: normal;
   text-align: left;
-  color: darkslategray;
+  color: darkslategrey;
+  mix-blend-mode: color-burn;
 }
 @media screen and (max-width: 600px) {
   .base{

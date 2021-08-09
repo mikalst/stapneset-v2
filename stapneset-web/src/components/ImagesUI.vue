@@ -1,19 +1,21 @@
 <template>
   <div id="images_app">
-    <div style="height: 20vh; "></div>
+    <div class="scrollsnapparent">
+    <div style="height: 30vh;"></div>
     <ImageElement
-      v-bind:id="idx"
-      v-for="[idx, url] of image_urls.entries()"
+      v-for="url of image_urls"
       v-bind:url="url"
-      v-bind:key="idx"
+      v-bind:key="url"
+      class="scrollsnapchild"
     ></ImageElement>
-      <div style="height: 60vh; "></div>
-      </div>
-    
+    <div style="height: 30vh;"></div>
+    </div>
+  </div>
 </template>
 
 <script>
 import ImageElement from './ImageElement.vue'
+import shuffle from '../methods/shuffle.js'
 
 export default {
   name: 'ImagesUI',
@@ -29,20 +31,28 @@ export default {
     async fetchImageUrls(){
       let res = await fetch(process.env.VUE_APP_API_PATH+"fetch-images");
       let json = await res.json();
-      this.image_urls = json;
+      this.image_urls = shuffle(json);
       return;
     }
   },
   async created () {
-    window.addEventListener('scroll', this.handleScroll);
-    this.element_height = Math.floor(window.innerHeight / 2);
     await this.fetchImageUrls();
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll);
   }
 }
 </script>
 
 <style>
+.scrollsnapchild{
+  scroll-snap-align: center;
+}
+.scrollsnapparent{
+  scroll-snap-type: y mandatory;
+  overflow: scroll;
+  height: 100vh;
+}
+#images_app{
+  overflow: hidden;
+  height:100vh;
+}
 </style>
+

@@ -1,4 +1,4 @@
-<template>
+<template class="scrollsnapchild">
 <div>
   <img class="loading image" v-bind:src="url">
 </div>
@@ -15,11 +15,23 @@ export default {
 </script>
 
 <style scoped>
-.image{
-  height: 80vh;
-  max-width: 100vh; 
-  align-content: center;
-  z-index: 10;
+@media screen and (max-width: 800px) {
+  .image{
+    width: 100vw;
+    max-height: 70vh; 
+    align-content: center;
+    z-index: 10;
+    object-fit: cover;
+  }
+}
+@media screen and (min-width: 801px) {
+  .image{
+    width: 50vw;
+    max-height: 90vh; 
+    align-content: center;
+    z-index: 10;
+    object-fit: cover;
+  }
 }
 
 /* ============= */

@@ -64,16 +64,16 @@ export default {
   },
   data: function () { 
     return {
-      show_background: true,
-      show_home: true,
+      show_background: false,
+      show_home: false,
       show_weather: false,
       show_images: false,
       show_history: false,
       show_geocaching: false,
-      show_image_button: true,
-      show_weather_button: true,
-      show_history_button: true,
-      show_geocaching_button: true
+      show_image_button: false,
+      show_weather_button: false,
+      show_history_button: false,
+      show_geocaching_button: false
     }
   },
   methods: {
@@ -124,6 +124,9 @@ export default {
       this.show_background = false;
     },
   },
+  mounted: function() {
+    setTimeout(() => { this.home() }, 500); 
+  }
 }
 </script>
 
