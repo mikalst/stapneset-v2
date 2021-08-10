@@ -15,7 +15,7 @@
     </div>
 
     <div  v-if="show_history_button" v-on:click="transition_to_history_view">
-    <Hyperlink msg="History" :top="true" :left="false"/>
+    <Hyperlink msg="Fortress" url="https://www.eigersund.kommune.no/stapnes.5063539-259858.html" :top="true" :left="false"/>
     </div>
     
     <div  v-if="show_geocaching_button" v-on:click="transition_to_geocaching_view">

@@ -1,7 +1,11 @@
 <template>
   <transition name="fade" v-if="pageloaded">
-    <div class="base" v-bind:class="{top: top, left: left, highlight: hover }">
-    <a class="nonhighlight" v-on:mouseover="hover=true" v-on:mouseleave="hover=false">
+    <div class="base" v-bind:class="{top: top, left: left}">
+    <a
+      v-bind:class="{top: top, left: left, highlight: hover }"
+      v-bind:href="url"
+      v-on:mouseover="hover=true"
+      v-on:mouseleave="hover=false">
       {{ msg }}
       </a>
   </div>
@@ -14,6 +18,7 @@ export default {
   props: {
     msg: String,
     top: Boolean,
+    url: String,
     left: Boolean,
     color: {
       default: 'azure',
@@ -35,7 +40,7 @@ export default {
 </script>
 
 <style scoped>
-.base{
+div.base{
   position: absolute;
   top: 75%;
   left: 55%;
@@ -45,11 +50,11 @@ export default {
   text-align: right;
   color: azure;
 }
-.top{
+div.top{
   top: 25%;
   color: darkslategray;
 }
-.left{
+div.left{
   left: 5%;
   text-align: left;
 }
@@ -74,6 +79,13 @@ export default {
 .highlight{
   opacity: 0.5;
   transition: opacity 0.5s ease-in;
+}
+a:link{
+  text-decoration: none;
+}
+a.top:visited{
+  text-decoration: none;
+  color: darkslategray;
 }
 </style>
 
