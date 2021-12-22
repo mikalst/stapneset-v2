@@ -1,33 +1,32 @@
 <template class="scrollsnapchild">
-<div>
-  <img class="loading image" v-bind:src="url">
-</div>
+  <div>
+    <img class="loading image" v-bind:src="url" />
+  </div>
 </template>
-
 
 <script>
 export default {
-  name: 'ImageElement',
+  name: "ImageElement",
   props: {
     url: String,
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
 @media screen and (max-width: 800px) {
-  .image{
+  .image {
     width: 100vw;
-    max-height: 70vh; 
+    max-height: 70vh;
     align-content: center;
     z-index: 10;
     object-fit: cover;
   }
 }
 @media screen and (min-width: 801px) {
-  .image{
+  .image {
     width: 50vw;
-    max-height: 90vh; 
+    max-height: 90vh;
     align-content: center;
     z-index: 10;
     object-fit: cover;
@@ -38,9 +37,6 @@ export default {
 /* == Spinner == */
 /* ============= */
 img.loading {
-    background: transparent url(../assets/spinner.gif) center center;
+  background: transparent url(../assets/spinner.gif) center center;
 }
 </style>
-
-
-
