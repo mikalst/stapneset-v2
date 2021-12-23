@@ -1,14 +1,12 @@
 <template>
-  <div id="images_app">
-    <div class="scrollsnapparent">
-      <div style="height: 30vh"></div>
+  <div id="images_app" class="nonbg">
+    <div class="scrollsnapparent nonbg">
       <ImageElement
         v-for="el of image_urls"
         v-bind:url="el.media_url"
         v-bind:key="el.id"
-        class="scrollsnapchild"
+        class="scrollsnapchild nonbg"
       ></ImageElement>
-      <div style="height: 30vh"></div>
     </div>
   </div>
 </template>

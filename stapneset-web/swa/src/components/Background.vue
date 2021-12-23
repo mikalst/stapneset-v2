@@ -1,11 +1,9 @@
 <template>
-  <transition name="fade">
-    <div id="background-first-container">
-      <div id="background-second-container">
-        <img src="/imgs/stapneset-depth.jpg" />
-      </div>
+  <div id="background-first-container">
+    <div id="background-second-container">
+      <img src="/imgs/stapneset-depth.jpg" />
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>
@@ -28,8 +26,10 @@ export default {
   opacity: 0;
 }
 #background-first-container {
+  display: flex;
+  flex: 1 1 auto;
   overflow: hidden;
-  height: 100vh;
+  z-index: 0;
   width: 100vw;
 }
 #background-second-container {

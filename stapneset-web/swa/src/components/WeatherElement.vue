@@ -1,31 +1,20 @@
 <template>
-  <transition name="fade" v-if="pageloaded">
-    <div size="lg"
-      class="col"
-      v-bind:class="{ farleft: idx == 0, left: idx == 1, right: idx == 2 }"
-    >
-      <p class="time">{{ days[time.getDay()] + "\n Kl." + time.getHours() }}</p>
-      <p
-        class="temp"
-        v-on:mouseover="hover = true"
-        v-on:mouseleave="hover = false"
-        v-bind:class="{ highlight: hover }"
-      >
-        {{ temperature }}&deg;C
-      </p>
-      <b-icon v-if="cloud_icon=='wb_cloudy'" icon="cloud-haze" size="lg" class="icon">Cloudy</b-icon>
-      <b-icon v-if="cloud_icon=='wb_sunny'" icon="sun-fill" size="lg" class="icon">Sunny</b-icon>
-      <b-icon v-if="cloud_icon=='filter_drama'" icon="cloud-sun" size="lg" class="icon">Partly cloudy</b-icon>
-      <p
-        class="temp"
-        v-on:mouseover="hover = true"
-        v-on:mouseleave="hover = false"
-        v-bind:class="{ highlight: hover }"
-      >
-        {{ wind_speed }}m/s
-      </p>
+  <div class="col nonbg">
+    <b-icon v-if="cloud_icon=='wb_cloudy'" icon="cloud-haze" size="lg" class="icon">Cloudy</b-icon>
+    <b-icon v-if="cloud_icon=='wb_sunny'" icon="sun-fill" size="lg" class="icon">Sunny</b-icon>
+    <b-icon v-if="cloud_icon=='filter_drama'" icon="cloud-sun" size="lg" class="icon">Partly cloudy</b-icon>
+  </div> 
+  <div class="col nonbg">
+    <div class="row">
+      {{ days[time.getDay()] + "\n Kl." + time.getHours() }}
     </div>
-  </transition>
+    <div class="row">
+      {{ temperature }}&deg;C
+    </div>
+    <div class="row">
+      {{ wind_speed }} m/s
+    </div>
+  </div>
 </template>
 
 <script>
@@ -92,7 +81,7 @@ export default {
   }
 }
 .icon {
-  width: 5rem;
-  height: 5rem;
+  width: 8vw;
+  height: 8vw;
 }
 </style>

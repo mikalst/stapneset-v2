@@ -17,7 +17,7 @@ export default {
 @media screen and (max-width: 800px) {
   .image {
     width: 100vw;
-    max-height: 70vh;
+    max-height: 100vh;
     align-content: center;
     z-index: 10;
     object-fit: cover;
@@ -26,7 +26,7 @@ export default {
 @media screen and (min-width: 801px) {
   .image {
     width: 50vw;
-    max-height: 90vh;
+    max-height: 100vh;
     align-content: center;
     z-index: 10;
     object-fit: cover;

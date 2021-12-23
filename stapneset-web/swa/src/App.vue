@@ -1,16 +1,25 @@
 <template>
+  <Navbar class="nonbg"/>
   <html>
-    <WeatherUI></WeatherUI>
+    <WeatherUI class="nonbg"></WeatherUI>
+    <InstaFeed class="nonbg"/>
   </html>
+  <!-- <Background/> -->
 </template>
 
 <script>
 import WeatherUI from './components/WeatherUI.vue';
+import Navbar from './components/Navbar.vue';
+// import Background from './components/Background.vue';
+import InstaFeed from './components/InstaFeed.vue';
 
 export default {
   name: 'App',
   components: {
-    WeatherUI
+    WeatherUI,
+    Navbar,
+    // Background,
+    InstaFeed
   }
 }
 </script>
@@ -22,6 +31,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+.nonbg {
+  z-index: 10;
 }
 </style>
