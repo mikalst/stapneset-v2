@@ -6,7 +6,7 @@
       </div>
       <div class="col col-6 d-flex justify-content-center align-items-center">
         <b-card>
-          some text goes here 
+          {{ caption }}
         </b-card>
       </div>
     </div>
@@ -18,6 +18,7 @@ export default {
   name: "ImageElement",
   props: {
     url: String,
+    caption: String
   },
 };
 </script>

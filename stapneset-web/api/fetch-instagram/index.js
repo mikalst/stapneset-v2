@@ -20,7 +20,7 @@ async function fetchFromIg() {
         const igAccessToken = await (await client.getSecret(secretName)).value;
         let url = `https://graph.instagram.com/${process.env['IG_API_USER_ID']}`
             + `/media?access_token=${igAccessToken}&fields=id`
-            + `,username,media_type,media_url`;
+            + `,username,media_type,media_url,caption`;
         let http_promise = new Promise((resolve, reject) => {
             https.get(url, {headers: {}}, (response) => {
                 let chunks_of_data = [];

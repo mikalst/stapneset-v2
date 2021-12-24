@@ -4,6 +4,7 @@
       <ImageElement
         v-for="el of image_urls"
         v-bind:url="el.media_url"
+        v-bind:caption="el.caption"
         v-bind:key="el.id"
         class="scrollsnapchild"
       ></ImageElement>
