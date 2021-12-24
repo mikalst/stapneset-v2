@@ -1,6 +1,15 @@
-<template class="scrollsnapchild">
-  <div>
-    <img class="loading image" v-bind:src="url" />
+<template>
+  <div class="container">
+    <div class="row image">
+      <div class="col col-6 my-1">
+        <b-img left fluid v-bind:src="url" />
+      </div>
+      <div class="col col-6 d-flex justify-content-center align-items-center">
+        <b-card>
+          some text goes here 
+        </b-card>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,29 +23,4 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width: 800px) {
-  .image {
-    width: 100vw;
-    max-height: 100vh;
-    align-content: center;
-    z-index: 10;
-    object-fit: cover;
-  }
-}
-@media screen and (min-width: 801px) {
-  .image {
-    width: 50vw;
-    max-height: 100vh;
-    align-content: center;
-    z-index: 10;
-    object-fit: cover;
-  }
-}
-
-/* ============= */
-/* == Spinner == */
-/* ============= */
-img.loading {
-  background: transparent url(../assets/spinner.gif) center center;
-}
 </style>

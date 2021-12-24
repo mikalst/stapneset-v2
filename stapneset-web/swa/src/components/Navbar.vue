@@ -24,4 +24,9 @@ export default {
 </script>
 
 <style>
+.navbar{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 </style>
