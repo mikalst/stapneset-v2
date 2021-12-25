@@ -1,14 +1,13 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-light navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Stapneset.no</a>
   <button class="btn btn-primary" 
     type="button" 
-    data-bs-toggle="collapse" 
-    data-bs-target="#weather" 
+    v-on:click="onClickButton"
     aria-expanded="false" 
     aria-controls="see_weather">
-    Se værmelding
+    {{ linkTexts[this.textId] }}
   </button>
   </div>
 </nav>
@@ -20,6 +19,25 @@ export default {
   name: "Navbar",
   components: {
   },
+  props: {
+    linkTexts: {
+      Type: Array,
+      default: [ "Se bilder", "Se vær" ]
+    }
+  },
+  data: function () {
+    return {
+      textId: 0,
+    }
+  },
+  methods: {
+      onClickButton () {
+      console.log('emit');
+
+      this.textId = (this.textId + 1)%2;
+      this.$emit('weatherButtonClicked', '');
+    }
+  }
 };
 </script>
 

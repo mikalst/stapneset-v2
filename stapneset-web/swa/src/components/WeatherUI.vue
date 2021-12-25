@@ -1,18 +1,14 @@
 <template>
-  <div class="collapse nonbg" id="weather">
-    <div class="card card-body container">
-      <div class="row">
-          <WeatherElement
-            v-for="[idx, sixHourPeriod] of weather_data.entries()"
-            v-bind:time="new Date(Date.parse(sixHourPeriod.time))"
-            v-bind:temperature="sixHourPeriod.details.air_temperature"
-            v-bind:cloud_area_fraction="sixHourPeriod.details.cloud_area_fraction"
-            v-bind:wind_speed="sixHourPeriod.details.wind_speed"
-            v-bind:idx="idx"
-            v-bind:key="idx"
-          ></WeatherElement>
-        </div>
-      </div>
+  <div class="row align-items-center h-100">
+    <WeatherElement
+      v-for="[idx, sixHourPeriod] of weather_data.entries()"
+      v-bind:time="new Date(Date.parse(sixHourPeriod.time))"
+      v-bind:temperature="sixHourPeriod.details.air_temperature"
+      v-bind:cloud_area_fraction="sixHourPeriod.details.cloud_area_fraction"
+      v-bind:wind_speed="sixHourPeriod.details.wind_speed"
+      v-bind:idx="idx"
+      v-bind:key="idx"
+    ></WeatherElement>
   </div>
 </template>
 

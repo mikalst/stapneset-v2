@@ -27,20 +27,22 @@ export default {
 }
 #background-first-container {
   display: flex;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   overflow: hidden;
   z-index: 0;
   width: 100vw;
 }
 #background-second-container {
   position: fixed;
+  top: 0%;
   left: -5%;
-  top: -5%;
-  height: 110%;
+  height: 100%;
   width: 110%;
+  overflow: hidden;
   background-image: "/imgs/stapneset-depth.jpg";
 }
 img {
+  z-index: 0;
   height: 100%;
   min-width: 114%;
   position: absolute;

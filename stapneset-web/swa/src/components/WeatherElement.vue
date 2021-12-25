@@ -1,20 +1,26 @@
 <template>
-  <div class="col nonbg">
-    <b-icon v-if="cloud_icon=='wb_cloudy'" icon="cloud-haze" size="lg" class="icon">Cloudy</b-icon>
-    <b-icon v-if="cloud_icon=='wb_sunny'" icon="sun-fill" size="lg" class="icon">Sunny</b-icon>
-    <b-icon v-if="cloud_icon=='filter_drama'" icon="cloud-sun" size="lg" class="icon">Partly cloudy</b-icon>
-  </div> 
-  <div class="col nonbg">
-    <div class="row">
-      {{ days[time.getDay()] + "\n Kl." + time.getHours() }}
-    </div>
-    <div class="row">
+  <b-col variant="light" class="nonbg wide">
+    <b-icon v-if="cloud_icon=='wb_cloudy'" variant="light" icon="cloud-haze" size="lg" class="icon">Cloudy</b-icon>
+    <b-icon v-if="cloud_icon=='wb_sunny'" variant="light"  icon="sun-fill" size="lg" class="icon">Sunny</b-icon>
+    <b-icon v-if="cloud_icon=='filter_drama'"  variant="light" icon="cloud-sun" size="lg" class="icon">Partly cloudy</b-icon>
+  </b-col> 
+  <b-col variant="light" class="nonbg wide">
+    <b-row variant="light">
+      <b-badge variant="light">
+        {{ days[time.getDay()] + "\n Kl." + time.getHours() }}
+      </b-badge>
+    </b-row>
+    <b-row variant="light">
+      <b-badge>
       {{ temperature }}&deg;C
-    </div>
-    <div class="row">
+      </b-badge>
+    </b-row>
+    <b-row variant="light">
+      <b-badge>
       {{ wind_speed }} m/s
-    </div>
-  </div>
+      </b-badge>
+    </b-row>
+  </b-col>
 </template>
 
 <script>
@@ -81,7 +87,7 @@ export default {
   }
 }
 .icon {
-  width: 8vw;
-  height: 8vw;
+  width: 3rem;
+  height: 3rem;
 }
 </style>

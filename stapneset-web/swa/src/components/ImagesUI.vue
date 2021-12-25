@@ -1,15 +1,13 @@
 <template>
-  <div id="images_app">
-    <div class="scrollsnapparent">
-      <div style="height: 30vh"></div>
-      <ImageElement
-        v-for="url of image_urls"
-        v-bind:url="url"
-        v-bind:key="url"
-        class="scrollsnapchild"
-      ></ImageElement>
-      <div style="height: 30vh"></div>
-    </div>
+  <div>
+    <div style="height: 30vh"></div>
+    <ImageElement
+      v-for="url of image_urls"
+      v-bind:url="url"
+      v-bind:key="url"
+      class="scrollsnapchild"
+    ></ImageElement>
+    <div style="height: 30vh"></div>
   </div>
 </template>
 
@@ -42,16 +40,4 @@ export default {
 </script>
 
 <style>
-.scrollsnapchild {
-  scroll-snap-align: center;
-}
-.scrollsnapparent {
-  scroll-snap-type: y mandatory;
-  overflow: scroll;
-  height: 100vh;
-}
-#images_app {
-  overflow: hidden;
-  height: 100vh;
-}
 </style>
