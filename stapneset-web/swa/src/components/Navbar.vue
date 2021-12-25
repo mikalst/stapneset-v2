@@ -24,7 +24,7 @@
     v-on:click="onClickButton(2)"
     aria-expanded="false" 
     aria-controls="see_biology">
-    Biologi
+    Fauna
   </b-button>
   
   <b-button
