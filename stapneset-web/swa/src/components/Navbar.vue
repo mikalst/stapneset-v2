@@ -2,7 +2,7 @@
 <nav class="navbar navbar-light navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Stapneset.no</a>
-  <b-button-group>
+  <b-button-group size="sm">
   <b-button
     type="button" 
     v-on:click="onClickButton(0)"

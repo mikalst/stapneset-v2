@@ -1,15 +1,11 @@
 <template>
-  <div class="container">
-    <div class="row image">
-      <div class="col col-6 my-1">
-        <b-img left rounded fluid-grow v-bind:src="url" />
-      </div>
-      <div class="col col-6 d-flex justify-content-center align-items-center">
-        <b-card>
-          {{ caption }}
-        </b-card>
-      </div>
-    </div>
+  <div class="container image py-2">
+    <b-row>
+      <b-card>
+      <b-img left rounded fluid-grow v-bind:src="url" class="py-6" />
+        {{ caption }}
+      </b-card>
+    </b-row>
   </div>
 </template>
 
@@ -24,4 +20,7 @@ export default {
 </script>
 
 <style scoped>
+.image {
+  max-width: 650px;
+}
 </style>

@@ -36,14 +36,14 @@ export default {
   position: fixed;
   top: 0%;
   left: -5%;
-  height: 100%;
+  height: 100vh;
   width: 110%;
   overflow: hidden;
   background-image: "/imgs/stapneset-depth.jpg";
 }
 img {
   z-index: 0;
-  height: 100%;
+  height: 100vh;
   min-width: 114%;
   position: absolute;
   animation-name: sway;

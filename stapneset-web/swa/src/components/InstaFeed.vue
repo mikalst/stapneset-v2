@@ -1,6 +1,5 @@
 <template>
   <div id="images_app" >
-    <div class="scrollsnapparent">
       <ImageElement
         v-for="el of imageData"
         v-bind:url="el.media_url"
@@ -8,7 +7,6 @@
         v-bind:key="el.id"
         class="scrollsnapchild"
       ></ImageElement>
-    </div>
   </div>
 </template>
 
@@ -29,17 +27,4 @@ export default {
 };
 </script>
 <style scoped>
-.scrollsnapchild {
-  scroll-snap-align: center;
-}
-.scrollsnapparent {
-  scroll-snap-type: y proximity;
-  overflow: hidden;
-}
-#images_app {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
 </style>
