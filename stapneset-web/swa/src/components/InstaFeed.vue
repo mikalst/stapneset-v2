@@ -2,7 +2,7 @@
   <div id="images_app" >
     <div class="scrollsnapparent">
       <ImageElement
-        v-for="el of image_urls"
+        v-for="el of imageData"
         v-bind:url="el.media_url"
         v-bind:caption="el.caption"
         v-bind:key="el.id"
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import shuffle from "../methods/shuffle";
 import ImageElement from "./ImageElement.vue";
 
 export default {
@@ -21,23 +20,12 @@ export default {
   components: {
     ImageElement,
   },
-  data: function () {
-    return {
-      image_urls: [],
-    };
-  },
-  methods: {
-    async fetchImageUrls() {
-      let res = await fetch(process.env.VUE_APP_API_PATH + "fetch-instagram");
-      let json = await res.json();
-      this.image_urls = shuffle(json["data"]);
-      console.log(this.image_urls);
-      return;
-    },
-  },
-  async created() {
-    await this.fetchImageUrls();
-  },
+  props: {
+    imageData: {
+      Type: Array,
+      default: [ ]
+    }
+  }
 };
 </script>
 <style scoped>

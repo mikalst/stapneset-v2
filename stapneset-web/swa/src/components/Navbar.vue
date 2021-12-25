@@ -2,13 +2,47 @@
 <nav class="navbar navbar-light navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Stapneset.no</a>
-  <button class="btn btn-primary" 
+  <b-button-group>
+  <b-button
     type="button" 
-    v-on:click="onClickButton"
+    v-on:click="onClickButton(0)"
     aria-expanded="false" 
     aria-controls="see_weather">
-    {{ linkTexts[this.textId] }}
-  </button>
+    Vær
+  </b-button>
+
+  <b-button
+    type="button" 
+    v-on:click="onClickButton(1)"
+    aria-expanded="false" 
+    aria-controls="see_history">
+    Område 
+  </b-button>
+  
+  <b-button
+    type="button" 
+    v-on:click="onClickButton(2)"
+    aria-expanded="false" 
+    aria-controls="see_biology">
+    Biologi
+  </b-button>
+  
+  <b-button
+    type="button" 
+    v-on:click="onClickButton(3)"
+    aria-expanded="false" 
+    aria-controls="see_biology">
+    Historie
+  </b-button>
+
+  <b-button
+    type="button" 
+    v-on:click="onClickButton(4)"
+    disabled
+    aria-expanded="false" 
+    aria-controls="see_biology">
+    Geocache
+  </b-button>  </b-button-group>
   </div>
 </nav>
 </template>
@@ -31,11 +65,10 @@ export default {
     }
   },
   methods: {
-      onClickButton () {
-      console.log('emit');
+      onClickButton (i) {
+      console.log(`emit ${i}`);
 
-      this.textId = (this.textId + 1)%2;
-      this.$emit('weatherButtonClicked', '');
+      this.$emit('weatherButtonClicked', i );
     }
   }
 };
