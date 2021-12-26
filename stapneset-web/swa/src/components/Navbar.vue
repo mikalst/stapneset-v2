@@ -66,7 +66,7 @@ export default {
   },
   methods: {
       onClickButton (i) {
-      console.log(`emit ${i}`);
+      console.debug(`Navbar emitted 'onClickButton(${i})'`);
 
       this.$emit('weatherButtonClicked', i );
     }

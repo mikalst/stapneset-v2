@@ -1,6 +1,12 @@
 {
   "name": "stapneset.no",
   "version": "1.0.0",
+  "description": "All code required for running stapneset.no",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikalst/stapneset-v2.git"
+  },
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

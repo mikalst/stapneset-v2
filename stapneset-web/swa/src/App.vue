@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import shuffle from "./methods/shuffle";
-
 import WeatherUI from './components/WeatherUI.vue';
 import Navbar from './components/Navbar.vue';
 import Background from './components/Background.vue';
@@ -44,30 +42,50 @@ export default {
   },
   methods: {
     onClickedImages: function(event) {
-      console.log('clicked');
+      console.debug(`Received onClickedImages(${event})`);
       this.tabIndex = (event) % 5;
+    },
+    cleanCaptions(imageData, caption) {
+      var filtered = imageData.filter(
+        function(x) { 
+          return x.caption?.toLowerCase().includes(
+            caption.toLowerCase()) ?? false },
+        this
+      );
+
+      filtered.forEach(element => {
+        element.caption = (element.caption ?? "").replace(caption, "");
+      });
+      filtered.forEach(element => {
+        element.caption = (element.caption ?? "").replace(caption.toLowerCase(), "");
+      });
+
+      return filtered;
+    },
+    sortAccordingToIndexTag(imageData) {
+      var regex = /\[(?<index>[\d]*)\]/m;
+      imageData.forEach(d => {
+          let match = d.caption?.match(regex);
+          d.index = match?.groups?.index ?? 999 
+          if (match) {
+            console.debug(match);
+            d.caption = d.caption?.substring(0, match.index) + d.caption?.substring(match.index + match?.[0].length, d.caption.length);
+          }
+        }
+      );
+      return imageData.sort((a, b) => a.index - b.index);
     },
     async fetchImageUrls() {
       let res = await fetch(process.env.VUE_APP_API_PATH + "fetch-instagram");
       let json = await res.json();
-      this.rawImageData = shuffle(json["data"]);
-      console.log(this.rawImageData);
+      this.rawImageData = 
+        this.sortAccordingToIndexTag(json["data"]);
 
-      this.sceneryData = this.rawImageData.filter(
-        function(x) { 
-          return x.caption?.toLowerCase().includes("#område") ?? false },
-        this
-      );
-      this.historyData = this.rawImageData.filter(
-        function(x) { 
-          return x.caption?.toLowerCase().includes("#hist") ?? false},
-        this
-      );
-      this.biologyData = this.rawImageData.filter(
-        function(x) { 
-          return x.caption?.toLowerCase().includes("#bio") ?? false},
-        this
-      );
+      this.sceneryData = this.cleanCaptions(this.rawImageData, "#Område");
+
+      this.historyData = this.cleanCaptions(this.rawImageData, "#Historie");
+      
+      this.biologyData = this.cleanCaptions(this.rawImageData, "#Fauna");
 
       return;
     }
