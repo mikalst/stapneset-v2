@@ -7,11 +7,10 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "@azure/data-tables": "^1.0.0-beta.1",
+    "@azure/data-tables": "^13.0.0",
     "@azure/identity": "^1.5.0",
     "@azure/keyvault-secrets": "^4.2.0",
     "@azure/storage-blob": "^12.2.1",
-    "azure-storage": "^2.10.3",
     "command-exists": "^1.2.9",
     "https": "^1.0.0"
   }

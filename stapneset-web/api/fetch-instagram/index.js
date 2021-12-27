@@ -1,4 +1,3 @@
-const azure = require('azure-storage');
 const https = require('https');
 const { DefaultAzureCredential } = require("@azure/identity");
 const { SecretClient } = require("@azure/keyvault-secrets");
@@ -31,7 +30,7 @@ async function fetchFromIg() {
     
                 response.on('end', () => {
                     let response_body = Buffer.concat(chunks_of_data);
-                    console.log(response_body.toString());
+                    // console.log(response_body.toString());
                     resolve(response_body.toString());
                 });
     

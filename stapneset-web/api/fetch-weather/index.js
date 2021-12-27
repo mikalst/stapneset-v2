@@ -1,6 +1,6 @@
-const azure = require('azure-storage');
 const https = require('https');
 
+const { TableClient, TableServiceClient } = require("@azure/data-tables");
 
 async function fetchFromYr() {
     let url = process.env['YR_API_ENDPOINT'];
@@ -30,35 +30,18 @@ async function fetchFromYr() {
     return json;
 }
 
-function processFromYr(yrJson, partitionKey, rowKey) {
-    var currentHour = rowKey;
+function processFromYr(yrJson, PartitionKey, RowKey) {
+    var currentHour = RowKey;
     var data = {
         "current" : yrJson[0],
         "tomorrow" : yrJson[36 - currentHour],
         "dayafter" : yrJson[60 - currentHour]
     }
     return {
-        "data": JSON.stringify(data),
-        "RowKey": rowKey,
-        "PartitionKey": partitionKey
+        data: JSON.stringify(data),
+        RowKey: RowKey,
+        PartitionKey: PartitionKey
     };
-}
-
-async function store(tableSvc, tableName, data) {
-    let promise = new Promise((resolve, reject) => {
-        tableSvc.insertOrReplaceEntity(tableName, data, {echoContent: true}, function (error, result, response) {
-            if(!error) {
-                // Insertion completed
-                resolve("Finished writing to table");
-            }
-            else{
-                reject(error);
-            }
-        });
-    }).catch(function(reason) {
-        console.log(reason);
-    });
-    await promise;
 }
 
 module.exports = async function (context, req) {
@@ -67,73 +50,73 @@ module.exports = async function (context, req) {
     const connectionString = process.env['STORAGE_CONNECTION_STRING'];
     const tableName = process.env['STORAGE_TABLE_NAME'];
 
-    const partitionKey = new Date().toDateString();
-    const rowKey = new Date().getHours().toString();
+    const PartitionKey = (new Date().toDateString()).replace(/\s/g, '-');
+    const RowKey = new Date().getHours().toString();
 
+    const tableSvc = TableClient.fromConnectionString(
+        connectionString, tableName);
     try{
-        var tableSvc = azure.createTableService(connectionString);
+        await tableSvc.createTable();
+        console.debug("[DEBUG] Created table", tableName);
+    }
+    catch(error)
+    {
+        console.error("[ERROR] Failed when creating table", tableName, error);
+        return;
+    }
 
-        var parsedWeatherData = {};
-        var weatherData = {};
 
-        let promise = new Promise(function(resolve, reject) {
-            tableSvc.retrieveEntity(
-                tableName,
-                partitionKey,
-                rowKey,
-                async function(error, result, response) {
-                    if(!error) {
-                        //Query was successful
-                        weatherData = result;
+    var parsedWeatherData = {};
+    var weatherData = {};
+        
+    try {
+        var result = await tableSvc.getEntity(PartitionKey, RowKey);
+        //Query was successful
+        weatherData = result;
 
-                        console.log("Successfully fetched data from storage.");
+        console.log("[DEBUG] Successfully fetched data from storage.");
 
-                        parsedWeatherData = {
-                            "data": JSON.parse(weatherData.data['_']),
-                            "RowKey": weatherData.RowKey,
-                            "PartitionKey": weatherData.PartitionKey
-                        };
-
-                        resolve("Success");
-                    }
-                    else {
-                        console.debug("[DEBUG] Failed fetching from storage", error);
-
-                        //Fetch data from yr
-                        rawWeatherData = await fetchFromYr();
-                        weatherData = processFromYr(rawWeatherData, partitionKey, rowKey);
-
-                        //Store data to Azure
-                        await store(tableSvc, tableName, weatherData);
-
-                        console.log("[DEBUG] Successfully fetched and stored data from Yr.");
-                        
-                        parsedWeatherData = {
-                            "data": JSON.parse(weatherData.data),
-                            "RowKey": weatherData.RowKey,
-                            "PartitionKey": weatherData.PartitionKey
-                        };
-
-                        resolve("Success");
-                    }
-                }
-            );
-        }).catch(function(reason) {
-            throw new Error(reason);
-        });
-
-        await promise;
-
-        console.log(parsedWeatherData);
-
+        parsedWeatherData = {
+            data: JSON.parse(weatherData.data),
+            RowKey: weatherData.RowKey,
+            PartitionKey: weatherData.PartitionKey
+        };
         context.res = {
             body: JSON.stringify(parsedWeatherData)
         };
+        return;
+    }
+    catch (error) 
+    {
+        console.debug("[DEBUG] Failed fetching from storage ...", error);
+        console.debug("[DEBUG] fetching from source.", error);
+    }
+    try {
+        //Fetch data from yr
+        rawWeatherData = await fetchFromYr();
+        weatherData = processFromYr(rawWeatherData, PartitionKey, RowKey);
+    }
+    catch(error)
+    {
+        console.error("[ERROR] Failed when fetching from source.", error);
+    }
+
+    //Store data to Azure
+    try {
+        await tableSvc.createEntity(weatherData);
+        console.debug("[DEBUG] Successfully fetched and stored data from Yr.");
     }
     catch (error) {
-        console.error(error);
-        context.res = {
-            body: JSON.stringify({"data": {"current": null, "tomorrow": null, "dayafter": null}})
-        };
+        console.error("[ERROR] Failed when storing response to Azure Storage:", error);
     }
+    parsedWeatherData = {
+        data: JSON.parse(weatherData.data),
+        RowKey: weatherData.RowKey,
+        PartitionKey: weatherData.PartitionKey
+    };
+
+    context.res = {
+        body: JSON.stringify(parsedWeatherData)
+    };
+    return;
 }
