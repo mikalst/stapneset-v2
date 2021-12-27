@@ -16,8 +16,7 @@
   "dependencies": {
     "bootstrap-vue-3": "^0.1.0",
     "core-js": "^3.6.5",
-    "vue": "^3.0.0",
-    "axios": "^0.24.0"
+    "vue": "^3.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -25,8 +24,13 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0"
+    "eslint-plugin-vue": "^7.0.0",
+    "validator": ">=13.7.0",
+    "glob-parent": "^6.0.2",
+    "json-schema": ">=0.4.0",
+    "nth-check": ">=2.0.1",
+    "ansi-regex": ">=5.0.1",
+    "eslint": "6.2.0"
   },
   "eslintConfig": {
     "root": true,
