@@ -7,7 +7,10 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "@azure/identity": "^1.5.0",
-    "@azure/keyvault-secrets": "^4.2.0"
+    "@azure/identity": "^2.0.1",
+    "@azure/keyvault-secrets": "^4.3.0"
+  },
+  "devDependencies": {
+    "axios": ">=0.21.2"
   }
 }
