@@ -6,6 +6,7 @@
   <b-button
     type="button" 
     v-on:click="onClickButton(0)"
+    :pressed="textId==0"
     aria-expanded="false" 
     aria-controls="see_weather"
     variant="primary">
@@ -15,8 +16,10 @@
   <b-button
     type="button" 
     v-on:click="onClickButton(1)"
+    :pressed="this.textId==1"
     aria-expanded="false" 
     aria-controls="see_history"
+    variant="primary"
     >
     Område 
   </b-button>
@@ -24,8 +27,10 @@
   <b-button
     type="button" 
     v-on:click="onClickButton(2)"
+    :pressed="this.textId==2"
     aria-expanded="false" 
     aria-controls="see_biology"
+    variant="primary"
     >
     Fauna
   </b-button>
@@ -33,8 +38,11 @@
   <b-button
     type="button" 
     v-on:click="onClickButton(3)"
+    :pressed="this.textId==3"
     aria-expanded="false" 
-    aria-controls="see_biology">
+    aria-controls="see_biology"
+    variant="primary"
+    >
     Historie
   </b-button>
 
@@ -43,7 +51,8 @@
     v-on:click="onClickButton(4)"
     disabled
     aria-expanded="false" 
-    aria-controls="see_biology">
+    aria-controls="see_biology"
+    variant="primary">
     Geocache
   </b-button>  </b-button-group>
   </div>
@@ -60,7 +69,7 @@ export default {
     linkTexts: {
       Type: Array,
       default: [ "Se bilder", "Se vær" ]
-    }
+    },
   },
   data: function () {
     return {
@@ -69,9 +78,9 @@ export default {
   },
   methods: {
       onClickButton (i) {
-      console.debug(`Navbar emitted 'onClickButton(${i})'`);
-
-      this.$emit('weatherButtonClicked', i );
+        this.textId = i;
+        console.debug(`Navbar emitted 'onClickButton(${i})'`);
+        this.$emit('weatherButtonClicked', i );
     }
   }
 };
