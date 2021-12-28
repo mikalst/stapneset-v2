@@ -7,7 +7,8 @@
     type="button" 
     v-on:click="onClickButton(0)"
     aria-expanded="false" 
-    aria-controls="see_weather">
+    aria-controls="see_weather"
+    variant="primary">
     Vær
   </b-button>
 
@@ -15,7 +16,8 @@
     type="button" 
     v-on:click="onClickButton(1)"
     aria-expanded="false" 
-    aria-controls="see_history">
+    aria-controls="see_history"
+    >
     Område 
   </b-button>
   
@@ -23,7 +25,8 @@
     type="button" 
     v-on:click="onClickButton(2)"
     aria-expanded="false" 
-    aria-controls="see_biology">
+    aria-controls="see_biology"
+    >
     Fauna
   </b-button>
   

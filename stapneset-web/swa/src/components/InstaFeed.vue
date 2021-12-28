@@ -3,7 +3,7 @@
       <ImageElement
         v-for="el of imageData"
         v-bind:url="el.media_url"
-        v-bind:caption="el.caption"
+        v-bind:paragraphs="el.paragraphs"
         v-bind:key="el.id"
         class="scrollsnapchild"
       ></ImageElement>

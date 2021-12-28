@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import processCaption from './methods/processCaption';
+
 import WeatherUI from './components/WeatherUI.vue';
 import Navbar from './components/Navbar.vue';
 import Background from './components/Background.vue';
@@ -45,47 +47,17 @@ export default {
       console.debug(`Received onClickedImages(${event})`);
       this.tabIndex = (event) % 5;
     },
-    cleanCaptions(imageData, caption) {
-      var filtered = imageData.filter(
-        function(x) { 
-          return x.caption?.toLowerCase().includes(
-            caption.toLowerCase()) ?? false },
-        this
-      );
-
-      filtered.forEach(element => {
-        element.caption = (element.caption ?? "").replace(caption, "");
-      });
-      filtered.forEach(element => {
-        element.caption = (element.caption ?? "").replace(caption.toLowerCase(), "");
-      });
-
-      return filtered;
-    },
-    sortAccordingToIndexTag(imageData) {
-      var regex = /\[(?<index>[\d]*)\]/m;
-      imageData.forEach(d => {
-          let match = d.caption?.match(regex);
-          d.index = match?.groups?.index ?? 999 
-          if (match) {
-            console.debug(match);
-            d.caption = d.caption?.substring(0, match.index) + d.caption?.substring(match.index + match?.[0].length, d.caption.length);
-          }
-        }
-      );
-      return imageData.sort((a, b) => a.index - b.index);
-    },
     async fetchImageUrls() {
       let res = await fetch(process.env.VUE_APP_API_PATH + "fetch-instagram");
       let json = await res.json();
-      this.rawImageData = 
-        this.sortAccordingToIndexTag(json["data"]);
 
-      this.sceneryData = this.cleanCaptions(this.rawImageData, "#Område");
+      this.rawImageData = json.data.map(x => processCaption(x));
 
-      this.historyData = this.cleanCaptions(this.rawImageData, "#Historie");
-      
-      this.biologyData = this.cleanCaptions(this.rawImageData, "#Fauna");
+      var processedData = this.rawImageData.sort((a, b) => a.index - b.index);
+
+      this.sceneryData = processedData.filter(x => x.area === "område");
+      this.historyData = processedData.filter(x => x.area === "historie");
+      this.biologyData = processedData.filter(x => x.area === "fauna");
 
       return;
     }
