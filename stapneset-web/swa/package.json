@@ -14,7 +14,6 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "bootstrap-vue-3": "^0.1.13",
     "core-js": "^3.6.5",
     "vue": "^3.0.0"
   },
