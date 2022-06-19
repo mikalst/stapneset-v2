@@ -1,7 +1,13 @@
 <template>
   <div class="container image py-2 text-left">
-    <b-card :img-src="url" img-top >
-      <b-card-text v-for="paragraph in paragraphs" :key="paragraph">
+    <b-card
+      :img-src="url"
+      img-top
+    >
+      <b-card-text
+        v-for="paragraph in paragraphs"
+        :key="paragraph"
+      >
         {{ paragraph }} 
       </b-card-text>
     </b-card>
@@ -22,6 +28,6 @@ export default {
 
 <style scoped>
 .image {
-  max-width: 650px;
+  max-width: 600px;
 }
 </style>

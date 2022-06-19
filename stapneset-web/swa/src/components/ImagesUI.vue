@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div style="height: 30vh"></div>
+    <div style="height: 30vh" />
     <ImageElement
       v-for="url of image_urls"
-      v-bind:url="url"
-      v-bind:key="url"
+      :key="url"
+      :url="url"
       class="scrollsnapchild"
-    ></ImageElement>
-    <div style="height: 30vh"></div>
+    />
+    <div style="height: 30vh" />
   </div>
 </template>
 
@@ -25,6 +25,9 @@ export default {
       image_urls: [],
     };
   },
+  async created() {
+    await this.fetchImageUrls();
+  },
   methods: {
     async fetchImageUrls() {
       let res = await fetch(process.env.VUE_APP_API_PATH + "fetch-images");
@@ -32,9 +35,6 @@ export default {
       this.image_urls = shuffle(json);
       return;
     },
-  },
-  async created() {
-    await this.fetchImageUrls();
   },
 };
 </script>

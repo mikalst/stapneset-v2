@@ -8,7 +8,7 @@
       :temperature="sixHourPeriod.details.air_temperature"
       :cloud_area_fraction="sixHourPeriod.details.cloud_area_fraction"
       :wind_speed="sixHourPeriod.details.wind_speed"
-    ></WeatherElement>
+    />
   </div>
 </template>
 

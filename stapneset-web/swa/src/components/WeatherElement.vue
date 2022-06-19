@@ -1,12 +1,17 @@
 <template>
-  <b-col variant="light" right class="nonbg wide text-center">
+  <b-col
+    variant="light"
+    right
+    class="nonbg wide text-center"
+  >
     <b-icon
       v-if="cloud_icon == 'wb_cloudy'"
       variant="light"
       icon="cloud-haze"
       size="lg"
       class="icon"
-      >Cloudy
+    >
+      Cloudy
     </b-icon>
     <b-icon
       v-if="cloud_icon == 'wb_sunny'"
@@ -14,7 +19,8 @@
       icon="sun-fill"
       size="lg"
       class="icon"
-      >Sunny
+    >
+      Sunny
     </b-icon>
     <b-icon
       v-if="cloud_icon == 'filter_drama'"
@@ -22,10 +28,14 @@
       icon="cloud-sun"
       size="lg"
       class="icon"
-      >Partly cloudy
+    >
+      Partly cloudy
     </b-icon>
   </b-col>
-  <b-col variant="light" class="nonbg wide text-center">
+  <b-col
+    variant="light"
+    class="nonbg wide text-center"
+  >
     <b-row variant="light">
       <b-badge variant="light">
         {{ days[time.getDay()] + "\n Kl." + time.getHours() }}

@@ -1,62 +1,68 @@
 <template>
-<nav class="navbar navbar-light navbar-expand-lg">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Stapneset.no</a>
-  <b-button-group size="sm">
-  <b-button
-    type="button" 
-    v-on:click="onClickButton(0)"
-    :pressed="textId==0"
-    aria-expanded="false" 
-    aria-controls="see_weather"
-    variant="primary">
-    Vær
-  </b-button>
+  <nav class="navbar navbar-light navbar-expand-lg">
+    <div class="container-fluid">
+      <a
+        class="navbar-brand"
+        href="#"
+      >Stapneset.no</a>
+      <b-button-group size="sm">
+        <b-button
+          type="button" 
+          :pressed="textId==0"
+          aria-expanded="false"
+          aria-controls="see_weather" 
+          variant="primary"
+          @click="onClickButton(0)"
+        >
+          Vær
+        </b-button>
 
-  <b-button
-    type="button" 
-    v-on:click="onClickButton(1)"
-    :pressed="this.textId==1"
-    aria-expanded="false" 
-    aria-controls="see_history"
-    variant="primary"
-    >
-    Område 
-  </b-button>
+        <b-button
+          type="button" 
+          :pressed="textId==1"
+          aria-expanded="false"
+          aria-controls="see_history" 
+          variant="primary"
+          @click="onClickButton(1)"
+        >
+          Område 
+        </b-button>
   
-  <b-button
-    type="button" 
-    v-on:click="onClickButton(2)"
-    :pressed="this.textId==2"
-    aria-expanded="false" 
-    aria-controls="see_biology"
-    variant="primary"
-    >
-    Fauna
-  </b-button>
+        <b-button
+          type="button" 
+          :pressed="textId==2"
+          aria-expanded="false"
+          aria-controls="see_biology" 
+          variant="primary"
+          @click="onClickButton(2)"
+        >
+          Fauna
+        </b-button>
   
-  <b-button
-    type="button" 
-    v-on:click="onClickButton(3)"
-    :pressed="this.textId==3"
-    aria-expanded="false" 
-    aria-controls="see_biology"
-    variant="primary"
-    >
-    Historie
-  </b-button>
+        <b-button
+          type="button" 
+          :pressed="textId==3"
+          aria-expanded="false"
+          aria-controls="see_biology" 
+          variant="primary"
+          @click="onClickButton(3)"
+        >
+          Historie
+        </b-button>
 
-  <b-button
-    type="button" 
-    v-on:click="onClickButton(4)"
-    disabled
-    aria-expanded="false" 
-    aria-controls="see_biology"
-    variant="primary">
-    Geocache
-  </b-button>  </b-button-group>
-  </div>
-</nav>
+        <b-button
+          type="button" 
+          disabled
+          aria-expanded="false"
+          aria-controls="see_biology" 
+          variant="primary"
+          @click="onClickButton(4)"
+        >
+          Geocache
+        </b-button>
+      </b-button-group>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -90,6 +96,5 @@ export default {
 .navbar{
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
 }
 </style>

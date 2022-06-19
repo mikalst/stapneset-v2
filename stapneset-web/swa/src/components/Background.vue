@@ -1,7 +1,7 @@
 <template>
   <div id="background-first-container">
     <div id="background-second-container">
-      <img src="/imgs/stapneset-depth.jpg" />
+      <img src="/imgs/stapneset-depth.jpg">
     </div>
   </div>
 </template>
@@ -10,10 +10,10 @@
 export default {
   name: "Background",
   components: {},
-  computed: {},
   data() {
     return {};
   },
+  computed: {},
 };
 </script>
 <style scoped>
