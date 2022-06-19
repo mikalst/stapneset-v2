@@ -55,16 +55,6 @@ module.exports = async function (context, req) {
 
     const tableSvc = TableClient.fromConnectionString(
         connectionString, tableName);
-    try{
-        await tableSvc.createTable();
-        console.debug("[DEBUG] Created table", tableName);
-    }
-    catch(error)
-    {
-        console.error("[ERROR] Failed when creating table", tableName, error);
-        return;
-    }
-
 
     var parsedWeatherData = {};
     var weatherData = {};

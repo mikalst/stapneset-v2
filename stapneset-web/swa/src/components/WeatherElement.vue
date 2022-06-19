@@ -1,9 +1,30 @@
 <template>
   <b-col variant="light" right class="nonbg wide text-center">
-    <b-icon v-if="cloud_icon=='wb_cloudy'" variant="light" icon="cloud-haze" size="lg" class="icon">Cloudy</b-icon>
-    <b-icon v-if="cloud_icon=='wb_sunny'" variant="light"  icon="sun-fill" size="lg" class="icon">Sunny</b-icon>
-    <b-icon v-if="cloud_icon=='filter_drama'"  variant="light" icon="cloud-sun" size="lg" class="icon">Partly cloudy</b-icon>
-  </b-col> 
+    <b-icon
+      v-if="cloud_icon == 'wb_cloudy'"
+      variant="light"
+      icon="cloud-haze"
+      size="lg"
+      class="icon"
+      >Cloudy
+    </b-icon>
+    <b-icon
+      v-if="cloud_icon == 'wb_sunny'"
+      variant="light"
+      icon="sun-fill"
+      size="lg"
+      class="icon"
+      >Sunny
+    </b-icon>
+    <b-icon
+      v-if="cloud_icon == 'filter_drama'"
+      variant="light"
+      icon="cloud-sun"
+      size="lg"
+      class="icon"
+      >Partly cloudy
+    </b-icon>
+  </b-col>
   <b-col variant="light" class="nonbg wide text-center">
     <b-row variant="light">
       <b-badge variant="light">
@@ -11,14 +32,10 @@
       </b-badge>
     </b-row>
     <b-row variant="light">
-      <b-badge>
-      {{ temperature }}&deg;C
-      </b-badge>
+      <b-badge> {{ temperature }}&deg;C </b-badge>
     </b-row>
     <b-row variant="light">
-      <b-badge>
-      {{ wind_speed }} m/s
-      </b-badge>
+      <b-badge> {{ wind_speed }} m/s </b-badge>
     </b-row>
   </b-col>
 </template>
@@ -29,7 +46,7 @@ export default {
   props: {
     time: Date,
     temperature: Number,
-    cloud_area_fraction: Number,
+    cloudAreaFraction: Number,
     wind_speed: Number,
     idx: Number,
     days: {
@@ -47,7 +64,6 @@ export default {
       },
     },
   },
-  computed: {},
   data() {
     return {
       pageloaded: false,
@@ -58,9 +74,9 @@ export default {
   created() {
     setTimeout(() => {
       this.pageloaded = true;
-      if (this.cloud_area_fraction > 80) {
+      if (this.cloudAreaFraction > 80) {
         this.cloud_icon = "wb_cloudy";
-      } else if (this.cloud_area_fraction > 40) {
+      } else if (this.cloudAreaFraction > 40) {
         this.cloud_icon = "filter_drama";
       } else {
         this.cloud_icon = "wb_sunny";

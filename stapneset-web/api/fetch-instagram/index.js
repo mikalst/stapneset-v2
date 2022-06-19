@@ -30,11 +30,11 @@ async function fetchFromIg() {
     
                 response.on('end', () => {
                     let response_body = Buffer.concat(chunks_of_data);
-                    // console.log(response_body.toString());
                     resolve(response_body.toString());
                 });
     
                 response.on('error', (error) => {
+                    console.error(error)
                     reject(error);
                 }, );
             });
