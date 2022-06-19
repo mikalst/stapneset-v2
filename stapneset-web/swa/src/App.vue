@@ -51,13 +51,16 @@ export default {
       let res = await fetch(process.env.VUE_APP_API_PATH + "fetch-instagram");
       let json = await res.json();
 
-      this.rawImageData = json.data.map(x => processCaption(x));
+      var rawImageData = json.data?.map(x => processCaption(x));
 
-      var processedData = this.rawImageData.sort((a, b) => a.index - b.index);
+      if(rawImageData)
+      {
+        var processedData = rawImageData.sort((a, b) => a.index - b.index);
 
-      this.sceneryData = processedData.filter(x => x.area === "område");
-      this.historyData = processedData.filter(x => x.area === "historie");
-      this.biologyData = processedData.filter(x => x.area === "fauna");
+        this.sceneryData = processedData.filter(x => x.area === "område");
+        this.historyData = processedData.filter(x => x.area === "historie");
+        this.biologyData = processedData.filter(x => x.area === "fauna");
+      }
 
       return;
     }

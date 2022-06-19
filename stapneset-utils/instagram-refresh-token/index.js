@@ -35,7 +35,7 @@ module.exports = async function (context, myTimer) {
             });
 
             response.on('error', (error) => {
-                console.log.error(error);
+                console.error(error);
                 reject(error);
             }, );
         });
@@ -48,7 +48,7 @@ module.exports = async function (context, myTimer) {
         context.log('Successfully refreshed token at', new Date());   
     }
     catch (ex) {
-        console.log.error(ex);
+        console.error(ex);
     }
 
 };
