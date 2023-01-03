@@ -24,7 +24,7 @@
     "@babel/eslint-parser": "^7.5.4",
     "@vue/cli-plugin-babel": "~5.0.6",
     "@vue/cli-plugin-eslint": "^5.0.6",
-    "@vue/cli-service": "^5.0.6",
+    "@vue/cli-service": "^5.0.8",
     "@vue/compiler-sfc": "^3.0.0",
     "ansi-regex": ">=5.0.1",
     "eslint": "^8.18.0",
